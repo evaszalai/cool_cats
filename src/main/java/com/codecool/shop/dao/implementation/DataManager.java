@@ -32,34 +32,34 @@ public class DataManager {
     }
 
     private void getSuppliers() {
-        List<List<String>> datas = getDatas(resources[0]);
-        for (List<String> data : datas) {
-            Supplier amazon = new Supplier(data.get(0), data.get(1));
+        List<List<String>> records = getRecords(resources[0]);
+        for (List<String> record : records) {
+            Supplier amazon = new Supplier(record.get(0), record.get(1));
             supplierDataStore.add(amazon);
         }
     }
 
     private void getProductCategories() {
-        List<List<String>> datas = getDatas(resources[1]);
-        for (List<String> data : datas) {
-            ProductCategory tablet = new ProductCategory(data.get(0), data.get(1), data.get(2));
+        List<List<String>> records = getRecords(resources[1]);
+        for (List<String> record : records) {
+            ProductCategory tablet = new ProductCategory(record.get(0), record.get(1), record.get(2));
             productCategoryDataStore.add(tablet);
         }
     }
 
     private void getProducts() {
-        List<List<String>> datas = getDatas(resources[2]);
-        for (List<String> data : datas) {
-            productDataStore.add(new Product(data.get(0),
-                    Float.parseFloat(data.get(1)),
-                    data.get(2),
-                    data.get(3),
-                    productCategoryDataStore.find(Integer.parseInt(data.get(4))),
-                    supplierDataStore.find(Integer.parseInt(data.get(5)))));
+        List<List<String>> records = getRecords(resources[2]);
+        for (List<String> record : records) {
+            productDataStore.add(new Product(record.get(0),
+                    Float.parseFloat(record.get(1)),
+                    record.get(2),
+                    record.get(3),
+                    productCategoryDataStore.find(Integer.parseInt(record.get(4))),
+                    supplierDataStore.find(Integer.parseInt(record.get(5)))));
         }
     }
 
-    private List<List<String>> getDatas(String fileName) {
+    private List<List<String>> getRecords(String fileName) {
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
