@@ -21,9 +21,13 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        BasicConfigurator.configure();
-        DataManager dataManager = new DataManager();
-        dataManager.setup();
+        try {
+            BasicConfigurator.configure();
+            DataManager dataManager = new DataManager();
+            dataManager.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        ProductDao productDataStore = ProductDaoMem.getInstance();
 //        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 //        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
@@ -42,5 +46,10 @@ public class Initializer implements ServletContextListener {
 //        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
 //        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
 //        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent arg0) {
+        System.out.println("ServletContextListener destroyed");
     }
 }
