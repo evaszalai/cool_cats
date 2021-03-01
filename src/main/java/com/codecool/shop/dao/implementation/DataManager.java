@@ -8,7 +8,6 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DataManager {
-    private static String[] resources = new String[]{"src/main/resources/suppliers.csv", "src/main/resources/productcategories.csv", "src/main/resources/products.csv"};
+    private static final String[] resources = new String[]{"src/main/resources/suppliers.csv", "src/main/resources/productcategories.csv", "src/main/resources/products.csv"};
     private ProductDao productDataStore;
     private ProductCategoryDao productCategoryDataStore;
     private SupplierDao supplierDataStore;
@@ -67,8 +66,6 @@ public class DataManager {
                 String[] values = line.split(";");
                 records.add(Arrays.asList(values));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
