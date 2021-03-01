@@ -1,0 +1,77 @@
+package com.codecool.shop.dao.implementation;
+
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class DataManager {
+    private static String[] resources = new String[]{"src/main/resources/suppliers.csv", "src/main/resources/productcategories.csv", "src/main/resources/products.csv"};
+    private ProductDao productDataStore;
+    private ProductCategoryDao productCategoryDataStore;
+    private SupplierDao supplierDataStore;
+
+    public void setup() {
+        productDataStore = ProductDaoMem.getInstance();
+        productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        supplierDataStore = SupplierDaoMem.getInstance();
+
+        getSuppliers();
+        getProductCategories();
+        getProducts();
+    }
+
+    private void getSuppliers() {
+        List<List<String>> datas = getDatas(resources[0]);
+        for (List<String> data : datas) {
+            Supplier amazon = new Supplier(data.get(0), data.get(1));
+            supplierDataStore.add(amazon);
+        }
+    }
+
+    private void getProductCategories() {
+        List<List<String>> datas = getDatas(resources[1]);
+        for (List<String> data : datas) {
+            ProductCategory tablet = new ProductCategory(data.get(0), data.get(1), data.get(2));
+            productCategoryDataStore.add(tablet);
+        }
+    }
+
+    private void getProducts() {
+        List<List<String>> datas = getDatas(resources[2]);
+        for (List<String> data : datas) {
+            productDataStore.add(new Product(data.get(0),
+                    Float.parseFloat(data.get(1)),
+                    data.get(2),
+                    data.get(3),
+                    productCategoryDataStore.find(Integer.parseInt(data.get(4))),
+                    supplierDataStore.find(Integer.parseInt(data.get(5)))));
+        }
+    }
+
+    private List<List<String>> getDatas(String fileName) {
+        List<List<String>> records = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(";");
+                records.add(Arrays.asList(values));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return records;
+    }
+}
