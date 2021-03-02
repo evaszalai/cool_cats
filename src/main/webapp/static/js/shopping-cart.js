@@ -2,6 +2,7 @@ const shoppingCart = {
 
     init: function () {
         this.displaySubPrice().then(() => this.displayTotalPrice());
+        this.addEventListenerToQuantityField();
     },
 
     displayTotalPrice: function () {
@@ -25,5 +26,17 @@ const shoppingCart = {
 
             subPrice.innerHTML = (unitPrice * quantity).toString() + '$';
         }
+    },
+
+    addEventListenerToQuantityField: function () {
+        let fields = document.querySelectorAll('.quantity');
+
+        for (let field of fields) {
+            field.addEventListener('focusout', this.refreshQuantity);
+        }
+    },
+
+    refreshQuantity: function () {
+        shoppingCart.init();
     }
 }
