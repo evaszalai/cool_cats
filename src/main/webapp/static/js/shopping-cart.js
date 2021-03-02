@@ -19,9 +19,9 @@ const shoppingCart = {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
 
         for (let row of shoppingCartTable.rows) {
-            let unitPrice = parseInt(document.querySelector('[data-unitprice]').innerHTML);
-            let quantity = document.querySelector('.quantity').value;
-            let subPrice = document.querySelector('[data-subprice]');
+            let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML);
+            let quantity = row.querySelector('.quantity').value;
+            let subPrice = row.querySelector('[data-subprice]');
 
             subPrice.innerHTML = (unitPrice * quantity).toString() + '$';
         }
