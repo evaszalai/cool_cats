@@ -7,9 +7,19 @@ const filter = {
         for (let category of document.querySelectorAll(".categorySelector")) {
             category.addEventListener("click", filter.getProductByCategory);
         }
+        for (let category of document.querySelectorAll(".supplierSelector")) {
+            category.addEventListener("click", filter.getProductBySupplier);
+        }
     },
     getProductByCategory: function (e) {
         fetch("/category?id=" + e.target.dataset.id)
+            .then((response) => response.json())
+            .then((data) => {
+                filter.reLoadProducts(data)
+            })
+    },
+    getProductBySupplier(e) {
+        fetch("/supplier?id=" + e.target.dataset.id)
             .then((response) => response.json())
             .then((data) => {
                 filter.reLoadProducts(data)

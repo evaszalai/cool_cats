@@ -31,6 +31,17 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Suppliers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div th:each="supl,iterStat : ${supplier}">
+                            <a class=" dropdown-item supplierSelector" href="#" th:attr="data-id=${supl.getId()}" th:text="${supl.getName()}">Name</a>
+                        </div>
+                    </div>
+                </li>
                 <li class="cart">
                     <button type="button" onclick="shoppingCart.init()" class="btn btn-success" data-toggle="modal"
                             data-target="#cartModal">
