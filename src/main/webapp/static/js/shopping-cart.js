@@ -1,8 +1,8 @@
 const shoppingCart = {
 
     init: function () {
-        this.displaySubPrice().then(() => this.displayTotalPrice());
-        this.addEventListenerToQuantityField();
+        shoppingCart.displaySubPrice().then(() => shoppingCart.displayTotalPrice());
+        shoppingCart.addEventListenerToQuantityField();
     },
 
     displayTotalPrice: function () {
@@ -24,6 +24,10 @@ const shoppingCart = {
             let quantity = row.querySelector('.quantity').value;
             let subPrice = row.querySelector('[data-subprice]');
 
+            if (quantity === '0') {
+                row.remove();
+            }
+
             subPrice.innerHTML = (unitPrice * quantity).toString() + '$';
         }
     },
@@ -32,11 +36,24 @@ const shoppingCart = {
         let fields = document.querySelectorAll('.quantity');
 
         for (let field of fields) {
-            field.addEventListener('focusout', this.refreshQuantity);
+            field.addEventListener('focusout', shoppingCart.refreshQuantity);
         }
     },
 
     refreshQuantity: function () {
         shoppingCart.init();
+        shoppingCart.checkIfCartEmpty()
+    },
+
+    checkIfCartEmpty: function () {
+        let shoppingCartTable = document.querySelector('.shopping-cart-table');
+        let checkoutButton = document.querySelector('#checkout');
+
+        if (shoppingCartTable.rows.length === 0) {
+            let message = '<tr> <td colspan="6" align="center"> Your cart is empty! </td> </tr>';
+
+            shoppingCartTable.insertAdjacentHTML('beforeend', message)
+            checkoutButton.disabled = true;
+        }
     }
 }
