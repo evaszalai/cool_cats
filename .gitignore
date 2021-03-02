@@ -1,5 +1,7 @@
 *.class
 
+*.csv
+
 # OS-X
 **/.DS_Store
 
