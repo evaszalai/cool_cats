@@ -36,6 +36,10 @@ const shoppingCart = {
         let fields = document.querySelectorAll('.quantity');
 
         for (let field of fields) {
+            field.type = 'number';
+            field.step = '1';
+            // field.pattern = " 0+\.[0-9]*[1-9][0-9]*$"
+            field.addEventListener('keypress', "return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57")
             field.addEventListener('focusout', shoppingCart.refreshQuantity);
         }
     },
