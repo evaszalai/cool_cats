@@ -25,6 +25,8 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
+    <script src="/static/js/filter.js" defer></script>
+
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
 </head>
 
@@ -36,20 +38,23 @@
 
 <div class="container">
     <div class="card">
-        <div class="heading">
-            <form th:action="@{/category}" id="category_selection"></form>
-            <select name="id" form="category_selection">
+        <div class="row">
+<!--            <form th:action="@{/category}" id="category_selection"></form>-->
+            <div class="col-sm">Category</div>
+            <div class="col-sm">
+            <select name="id" id="categorySelector">
                 <div th:each="cat,iterStat : ${category}"><option th:value="${cat.getId()}" th:text="${cat.getName()}" >Name</option></div>
             </select>
-            <button type="submit" form="category_selection">Filter</button>
+            </div>
+<!--            <button type="submit" form="category_selection">Filter</button>-->
         </div>
-        <div>
-            <form th:action="@{/supplier}" id="supplier_selection"></form>
-            <select name="id" form="supplier_selection">
-                <div th:each="sup,iterStat : ${supplier}"><option th:value="${sup.getId()}" th:text="${sup.getName()}" >Name</option></div>
-            </select>
-            <button type="submit" form="supplier_selection">Filter</button>
-        </div>
+<!--        <div>-->
+<!--            <form th:action="@{/supplier}" id="supplier_selection"></form>-->
+<!--            <select name="id" form="supplier_selection">-->
+<!--                <div th:each="sup,iterStat : ${supplier}"><option th:value="${sup.getId()}" th:text="${sup.getName()}" >Name</option></div>-->
+<!--            </select>-->
+<!--            <button type="submit" form="supplier_selection">Filter</button>-->
+<!--        </div>-->
     </div>
 
     <div id="products" class="row">
