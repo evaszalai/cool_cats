@@ -33,16 +33,14 @@ public class DataManager {
     private void getSuppliers() {
         List<List<String>> records = getRecords(resources[0]);
         for (List<String> record : records) {
-            Supplier amazon = new Supplier(record.get(0), record.get(1));
-            supplierDataStore.add(amazon);
+            supplierDataStore.add(new Supplier(record.get(0), record.get(1)));
         }
     }
 
     private void getProductCategories() {
         List<List<String>> records = getRecords(resources[1]);
         for (List<String> record : records) {
-            ProductCategory tablet = new ProductCategory(record.get(0), record.get(1), record.get(2));
-            productCategoryDataStore.add(tablet);
+            productCategoryDataStore.add(new ProductCategory(record.get(0), record.get(1), record.get(2)));
         }
     }
 
