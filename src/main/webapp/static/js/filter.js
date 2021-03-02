@@ -3,14 +3,15 @@ const filter = {
         this.addEventListeners();
     },
     addEventListeners: function () {
-        document.querySelector("#categorySelector").addEventListener("change", filter.addActivityItem);
+        // document.querySelector("#categorySelector").addEventListener("change", filter.addActivityItem);
+        for (let category of document.querySelectorAll(".categorySelector")) {
+            category.addEventListener("click", filter.getProductByCategory);
+        }
     },
-    addActivityItem: function (e) {
-        //option is selected
-        fetch("/category?id=" + e.target.value)
+    getProductByCategory: function (e) {
+        fetch("/category?id=" + e.target.dataset.id)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 filter.reLoadProducts(data)
             })
     },
@@ -53,13 +54,14 @@ const filter = {
         text1.classList.add("card-text");
         let productPrice = document.createElement('p');
         productPrice.classList.add("lead");
-        productPrice.innerHTML = product.defaultPrice;
+        productPrice.innerHTML = product.defaultPrice + " " + product.defaultCurrency;
         text1.appendChild(productPrice);
         let text2 = document.createElement('div');
         text2.classList.add("card-text");
         let addToCartButton = document.createElement('a');
         addToCartButton.classList.add("btn");
-        addToCartButton.classList.add("btn-success")
+        addToCartButton.classList.add("btn-success");
+        addToCartButton.setAttribute("href", "#");
         addToCartButton.innerHTML = "Add to cart";
         text2.appendChild(addToCartButton);
         col1.appendChild(text1);

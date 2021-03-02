@@ -23,16 +23,17 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        Dropdown link
+                        Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div th:each="cat,iterStat : ${category}">
+                            <a class=" dropdown-item categorySelector" href="#" th:attr="data-id=${cat.getId()}" th:text="${cat.getName()}">Name</a>
+                        </div>
                     </div>
                 </li>
                 <li class="cart">
-                    <button type="button" onclick="shoppingCart.init()" class="btn btn-success" data-toggle="modal" data-target="#cartModal">
+                    <button type="button" onclick="shoppingCart.init()" class="btn btn-success" data-toggle="modal"
+                            data-target="#cartModal">
                         View Cart
                     </button>
                 </li>
