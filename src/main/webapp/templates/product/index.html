@@ -42,7 +42,20 @@
 
 <div class="container">
     <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+        <div class="heading">
+            <form th:action="@{/category}" id="category_selection"></form>
+            <select name="id" form="category_selection">
+                <div th:each="cat,iterStat : ${category}"><option th:value="${cat.getId()}" th:text="${cat.getName()}" >Name</option></div>
+            </select>
+            <button type="submit" form="category_selection">Filter</button>
+        </div>
+        <div>
+            <form th:action="@{/supplier}" id="supplier_selection"></form>
+            <select name="id" form="supplier_selection">
+                <div th:each="sup,iterStat : ${supplier}"><option th:value="${sup.getId()}" th:text="${sup.getName()}" >Name</option></div>
+            </select>
+            <button type="submit" form="supplier_selection">Filter</button>
+        </div>
     </div>
 
     <div id="products" class="row">
@@ -54,11 +67,23 @@
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                    <div class="col-sm">
                     <div class="card-text">
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
                         <a class="btn btn-success" href="#">Add to cart</a>
+                    </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card-text">
+                            <p class="lead" th:text="${prod.getProductCategory().getName()}">Little</p>
+                        </div>
+                        <div class="card-text">
+                            <p class="lead" th:text="${prod.getSupplier().getName()}">John Doe</p>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
