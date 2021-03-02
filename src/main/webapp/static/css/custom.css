@@ -60,3 +60,17 @@
 {
     margin: 0 0 11px;
 }
+
+.container {
+    padding: 2rem 0rem;
+}
+
+.price {
+    margin-left: 1rem;
+}
+
+.modal-footer {
+    padding-top: 0rem;
+}
+
+
