@@ -35,20 +35,11 @@
 <body>
 <div th:replace="navbar.html :: navbar"></div>
 
-<div class="jumbotron text-center">
-    <h1>CoolCats</h1>
-</div>
-
-
 <div class="container">
-    <div class="card">
-
-    </div>
-
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/' + ${prod.name} + '.jpg'" alt="" />
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
@@ -60,7 +51,7 @@
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" th:attr="data-productId=${prod.id}">Add to cart</a>
+                                <a class="btn btn-success shoppingCart" th:attr="data-productid=${prod.id}">Add to cart</a>
                             </div>
                         </div>
                         <div class="col-sm">

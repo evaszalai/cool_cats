@@ -33,7 +33,7 @@ public class DataManager {
     private void getSuppliers() {
         List<List<String>> records = getRecords(resources[0]);
         for (List<String> record : records) {
-            supplierDataStore.add(new Supplier(record.get(0), record.get(1)));
+            supplierDataStore.add(new Supplier(record.get(0)));
         }
     }
 

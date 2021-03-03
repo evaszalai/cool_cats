@@ -1,28 +1,35 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.implementation.ProductId;
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet(urlPatterns = {"/add-to-cart"})
+@WebServlet(urlPatterns = {"/cart"})
 public class AddToCart extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            StringBuilder sb = new StringBuilder();
-            BufferedReader reader = req.getReader();
-            try {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line).append('\n');
-                }
-            } finally {
-                reader.close();
-            }
-            System.out.println(sb.toString());
+        ProductId obj = new Gson().fromJson(req.getReader(), ProductId.class);
+
+        HttpSession session = req.getSession();
+
+        if (session == null) {
+            List<int> productIds = new ArrayList<String>();
+        }
+
+        productIds.add("Test1");
+        productIds.add("Test2");
+
+        HttpSession session = req.getSession();
+        session.setAtrribute("Avr", names);
     }
 
     @Override

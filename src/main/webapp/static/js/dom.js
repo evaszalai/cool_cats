@@ -11,13 +11,15 @@ export let dom = {
         for (let category of document.querySelectorAll(".supplierSelector")) {
             category.addEventListener("click", dom.getProductBySupplier);
         }
-        for (let addToCartButton of document.querySelectorAll("[data-productId]")) {
+        for (let addToCartButton of document.querySelectorAll("[data-productid]")) {
             addToCartButton.addEventListener("click", dom.addToCart);
         }
         document.querySelector("#shoppingCart").addEventListener("click", dom.shoppingCartInit)
     },
     addToCart(e) {
-        dataHandler._api_post("/add-to-cart", {'id': e.target.dataset.productId}, function (response) {
+        let data = {};
+        data.id = e.target.dataset.productid;
+        dataHandler._api_post("/cart", data, function (response) {
             alert(response);
         })
     },
@@ -42,7 +44,7 @@ export let dom = {
         return `
             <div class="col col-sm-12 col-md-6 col-lg-4">
             <div class="card">
-                <img class="" src="/static/img/product_${product.id}.jpg" alt="" />
+                <img class="" src="/static/img/${product.name}.jpg" alt="" />
                 <div class="card-header">
                     <h4 class="card-title">${product.name}</h4>
                     <p class="card-text">${product.description}</p>
