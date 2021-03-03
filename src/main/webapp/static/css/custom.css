@@ -18,6 +18,15 @@ body{
     font-family: "Book Antiqua";
 }
 
+.dropdown-item{
+    background-color: black !important;
+    color: rgb(14, 136, 113) !important;
+}
+
+.dropdown-menu {
+    background-color: black !important;
+}
+
 .cart {
     float: right !important;
 }
