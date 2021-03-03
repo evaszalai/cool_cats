@@ -72,11 +72,37 @@ export let dom = {
             </div>`
     },
     shoppingCartInit: function () {
+        dataHandler._api_get("/cart", function (productsInCart) {
+            dom.fillCartWithProducts(productsInCart);
+        });
+    },
+    fillCartWithProducts(productsInCart) {
+        let cartTableBody = document.querySelector(".shopping-cart-table");
+        cartTableBody.innerHTML = "";
+        for (let product of productsInCart) {
+            cartTableBody.insertAdjacentHTML("beforeend", dom.makeCartRow(product));
+        }
+        dom.shoppingCartPriceInit();
+    },
+    makeCartRow: function (product) {
+        return `<tr>
+            <td class="w-25">
+                <img class="cart-img" src="/static/img/${product.name}.jpg" class="img-fluid img-thumbnail" alt="" />
+            </td>
+            <td>${product.name}</td>
+            <td data-unitprice>${product.defaultPrice}</td>
+            <td class="qty"><input type="text" class="quantity" data-productid="${product.id}" value="${product.quantity}"></td>
+            <td data-subprice></td>
+            <td>
+                <a href="#" class="btn btn-danger btn-sm">
+                    <i class="fa fa-times"></i>
+                </a>
+            </td>
+        </tr>`
+    },
+    shoppingCartPriceInit: function () {
         dom.displaySubPrice().then(() => dom.displayTotalPrice());
         dom.addEventListenerToQuantityField();
-        dataHandler._api_get("/cart", function (productsInCart) {
-            console.log(productsInCart);
-        })
     },
     displayTotalPrice: function () {
         let totalPrice = 0;
@@ -86,7 +112,7 @@ export let dom = {
             totalPrice += parseInt(subPrice.innerHTML);
         }
 
-        document.querySelector('.price').innerHTML = totalPrice.toString() + '$';
+        document.querySelector('.price').innerHTML = totalPrice.toString();
     },
     displaySubPrice: async function () {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
@@ -100,7 +126,7 @@ export let dom = {
                 row.remove();
             }
 
-            subPrice.innerHTML = (unitPrice * quantity).toString() + '$';
+            subPrice.innerHTML = (unitPrice * quantity).toString();
         }
     },
     addEventListenerToQuantityField: function () {
@@ -113,7 +139,7 @@ export let dom = {
         }
     },
     refreshQuantity: function () {
-        dom.shoppingCartInit();
+        dom.shoppingCartPriceInit();
         dom.checkIfCartEmpty()
     },
     checkIfCartEmpty: function () {
