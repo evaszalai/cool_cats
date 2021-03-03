@@ -6,7 +6,7 @@ import java.util.List;
 public class Supplier extends BaseModel {
     private transient List<Product> products;
 
-    public Supplier(String name, String description) {
+    public Supplier(String name) {
         super(name);
         this.products = new ArrayList<>();
     }
@@ -27,10 +27,8 @@ public class Supplier extends BaseModel {
     public String toString() {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
-                        "description: %3$s",
                 this.id,
-                this.name,
-                this.description
+                this.name
         );
     }
 }
