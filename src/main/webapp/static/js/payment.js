@@ -33,7 +33,7 @@ const payment = {
             '            </div>\n' +
             '            <div class="form-group">\n' +
             '                <div class="col-md-12"><strong>Card CVV:</strong></div>\n' +
-            '                <div class="col-md-12"><input type="text" class="form-control" name="credit_card_code" value=""/></div>\n' +
+            '                <div class="col-md-12"><input type="password" class="form-control" name="credit_card_code" value=""/></div>\n' +
             '            </div>\n' +
             '            <div class="form-group">\n' +
             '                <div class="col-md-12">\n' +
