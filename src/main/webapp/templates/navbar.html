@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <body>
 
 <div th:fragment="navbar">
@@ -46,8 +47,7 @@
                 </li>
             </ul>
             <span class="btn cart">
-                <button type="button" onclick="shoppingCart.init()" class="btn btn-success" data-toggle="modal"
-                        data-target="#cartModal">
+                <button id="shoppingCart"type="button" class="btn btn-success" data-toggle="modal" data-target="#cartModal">
                     View Cart
                 </button>
             </span>

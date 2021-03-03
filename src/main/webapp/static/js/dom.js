@@ -11,6 +11,15 @@ export let dom = {
         for (let category of document.querySelectorAll(".supplierSelector")) {
             category.addEventListener("click", dom.getProductBySupplier);
         }
+        for (let addToCartButton of document.querySelectorAll("[data-productId]")) {
+            addToCartButton.addEventListener("click", dom.addToCart);
+        }
+        document.querySelector("#shoppingCart").addEventListener("click", dom.shoppingCartInit)
+    },
+    addToCart(e) {
+        dataHandler._api_post("/add-to-cart", {'id': e.target.dataset.productId}, function (response) {
+            alert(response);
+        })
     },
     getProductByCategory: function (e) {
         dataHandler._api_get("/category?id=" + e.target.dataset.id, function (products) {
@@ -60,5 +69,58 @@ export let dom = {
                 </div>
             </div>
             </div>`
+    },
+    shoppingCartInit: function () {
+        dom.displaySubPrice().then(() => dom.displayTotalPrice());
+        dom.addEventListenerToQuantityField();
+    },
+    displayTotalPrice: function () {
+        let totalPrice = 0;
+        let subPrices = document.querySelectorAll('[data-subprice]');
+
+        for (let subPrice of subPrices) {
+            totalPrice += parseInt(subPrice.innerHTML);
+        }
+
+        document.querySelector('.price').innerHTML = totalPrice.toString() + '$';
+    },
+    displaySubPrice: async function () {
+        let shoppingCartTable = document.querySelector('.shopping-cart-table');
+
+        for (let row of shoppingCartTable.rows) {
+            let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML);
+            let quantity = row.querySelector('.quantity').value;
+            let subPrice = row.querySelector('[data-subprice]');
+
+            if (quantity === '0') {
+                row.remove();
+            }
+
+            subPrice.innerHTML = (unitPrice * quantity).toString() + '$';
+        }
+    },
+    addEventListenerToQuantityField: function () {
+        let fields = document.querySelectorAll('.quantity');
+
+        for (let field of fields) {
+            field.type = 'number';
+            field.step = '1';
+            field.addEventListener('change', dom.refreshQuantity);
+        }
+    },
+    refreshQuantity: function () {
+        dom.shoppingCartInit();
+        dom.checkIfCartEmpty()
+    },
+    checkIfCartEmpty: function () {
+        let shoppingCartTable = document.querySelector('.shopping-cart-table');
+        let checkoutButton = document.querySelector('#checkout');
+
+        if (shoppingCartTable.rows.length === 0) {
+            let message = '<tr> <td colspan="6" style="text-align:center;" > Your cart is empty! </td> </tr>';
+
+            shoppingCartTable.insertAdjacentHTML('beforeend', message)
+            checkoutButton.disabled = true;
+        }
     }
 }
