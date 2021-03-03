@@ -27,9 +27,9 @@ const payment = {
 
     addCreditCardCredentials: function (paymentCredentials) {
         let creditCardCredentials =
-            '<div class="form-group">\n' +
+            '<div class="form-group"">\n' +
             '                <div class="col-md-12"><strong>Credit Card Number:</strong></div>\n' +
-            '                <div class="col-md-12"><input type="text" class="form-control" name="credit_card_number" value=""/></div>\n' +
+            '                <div class="col-md-12"><input type="text" style="width: 50%" class="form-control" name="credit_card_number" value=""/></div>\n' +
             '            </div>\n' +
             '            <div class="form-group">\n' +
             '                <div class="col-md-12"><strong>Card CVV:</strong></div>\n' +
