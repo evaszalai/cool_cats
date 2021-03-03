@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <body>
 
 <div th:fragment="navbar" class="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" >
-        <a class="navbar-brand" href="#">CoolCats</a>
+        <a class="navbar-brand" href="/">CoolCats</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -38,10 +39,9 @@
                 </li>
             </ul>
             <span class="btn cart">
-                <button type="button" onclick="shoppingCart.init()" class="btn btn-success" data-toggle="modal"
-                        data-target="#cartModal">
-                        View Cart
-                    </button>
+                <button id="shoppingCart"type="button" class="btn btn-success" data-toggle="modal" data-target="#cartModal">
+                    View Cart
+                </button>
             </span>
         </div>
     </nav>

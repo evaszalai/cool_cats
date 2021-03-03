@@ -103,6 +103,9 @@ body{
     padding-top: 0;
 }
 
+.jumbotron {
+    margin-top: 65px;
+}
 #description {
     border: none;
     text-align: center;
@@ -117,3 +120,6 @@ body{
 }
 
 
+.card {
+    margin: 10px;
+}
