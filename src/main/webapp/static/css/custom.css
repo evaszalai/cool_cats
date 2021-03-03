@@ -1,5 +1,7 @@
 body{
     background-image: url("/static/img/backgroundTiger.jpeg");
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .navbar-brand {
@@ -95,9 +97,11 @@ body{
     border: none;
     text-align: center;
     margin-bottom: 10px;
-    font-size: 14pt;
+    font-family: "Book Antiqua";
+    font-size: 18pt;
+    font-weight: bold;
     padding: 10pt;
-    background-color: #115544;
+    background: rgba(14, 176, 143, 0.6);
     color: white;
 
 }
