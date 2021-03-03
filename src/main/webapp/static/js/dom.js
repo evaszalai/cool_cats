@@ -16,7 +16,7 @@ export let dom = {
         }
         document.querySelector("#shoppingCart").addEventListener("click", dom.shoppingCartInit)
     },
-    addToCart(e) {
+    addToCart: function (e) {
         let data = {};
         data.id = e.target.dataset.productid;
         dataHandler._api_post("/cart", data, function (response) {
@@ -28,7 +28,7 @@ export let dom = {
             dom.reLoadProducts(products);
         })
     },
-    getProductBySupplier(e) {
+    getProductBySupplier: function (e) {
         dataHandler._api_get("/supplier?id=" + e.target.dataset.id, function (products) {
             dom.reLoadProducts(products);
         })
@@ -75,6 +75,9 @@ export let dom = {
     shoppingCartInit: function () {
         dom.displaySubPrice().then(() => dom.displayTotalPrice());
         dom.addEventListenerToQuantityField();
+        dataHandler._api_get("/cart", function (productsInCart) {
+            console.log(productsInCart);
+        })
     },
     displayTotalPrice: function () {
         let totalPrice = 0;
