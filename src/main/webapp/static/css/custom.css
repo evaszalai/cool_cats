@@ -73,4 +73,10 @@
     padding-top: 0rem;
 }
 
+.jumbotron {
+    margin-top: 65px;
+}
 
+.card {
+    margin: 10px;
+}

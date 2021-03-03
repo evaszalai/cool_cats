@@ -1,35 +1,32 @@
-const filter = {
+import {dataHandler} from "./data_handler.js";
+
+export let dom = {
     init: function () {
         this.addEventListeners();
     },
     addEventListeners: function () {
-        // document.querySelector("#categorySelector").addEventListener("change", filter.addActivityItem);
         for (let category of document.querySelectorAll(".categorySelector")) {
-            category.addEventListener("click", filter.getProductByCategory);
+            category.addEventListener("click", dom.getProductByCategory);
         }
         for (let category of document.querySelectorAll(".supplierSelector")) {
-            category.addEventListener("click", filter.getProductBySupplier);
+            category.addEventListener("click", dom.getProductBySupplier);
         }
     },
     getProductByCategory: function (e) {
-        fetch("/category?id=" + e.target.dataset.id)
-            .then((response) => response.json())
-            .then((data) => {
-                filter.reLoadProducts(data)
-            })
+        dataHandler._api_get("/category?id=" + e.target.dataset.id, function (products) {
+            dom.reLoadProducts(products);
+        })
     },
     getProductBySupplier(e) {
-        fetch("/supplier?id=" + e.target.dataset.id)
-            .then((response) => response.json())
-            .then((data) => {
-                filter.reLoadProducts(data)
-            })
+        dataHandler._api_get("/supplier?id=" + e.target.dataset.id, function (products) {
+            dom.reLoadProducts(products);
+        })
     },
     reLoadProducts: function (products) {
         let productsContainer = document.querySelector("#products");
         productsContainer.innerHTML = "";
         for (let product of products) {
-            productsContainer.insertAdjacentHTML("beforeend", filter.makeACard(product));
+            productsContainer.insertAdjacentHTML("beforeend", dom.makeACard(product));
         }
     },
     makeACard: function (product) {
@@ -62,9 +59,6 @@ const filter = {
                     </div>
                 </div>
             </div>
-            </div>
-        `
+            </div>`
     }
 }
-
-filter.init();
