@@ -20,7 +20,7 @@ export let dom = {
         let data = {};
         data.id = e.target.dataset.productid;
         dataHandler._api_post("/cart", data, function (response) {
-            alert(response);
+            alert(response.answer);
         })
     },
     getProductByCategory: function (e) {

@@ -23,26 +23,28 @@ public class CartController extends HttpServlet {
         HttpSession session = req.getSession();
         HashMap<Integer, Integer> productsInCart;
         if (session.getAttribute("productsInCart") == null) {
-            System.out.println("1");
             productsInCart = new HashMap<Integer, Integer>();
         } else {
-            System.out.println("2");
             productsInCart = (HashMap<Integer, Integer>) session.getAttribute("productsInCart");
         }
-        if (!productsInCart.containsKey(productId.getId())) {
-            int newQuantity = productsInCart.get(productId.getId()) + 1;
-            productsInCart.put(productId.getId(), newQuantity);
-        } else {
+        if (productsInCart.size() == 0) {
             productsInCart.put(productId.getId(), 1);
+        } else {
+            if (!productsInCart.containsKey(productId.getId())) {
+                int newQuantity = productsInCart.get(productId.getId()) + 1;
+                productsInCart.put(productId.getId(), newQuantity);
+            } else {
+                productsInCart.put(productId.getId(), 1);
+            }
         }
         session.setAttribute("productsInCart", productsInCart);
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+
         PrintWriter out = resp.getWriter();
 
-        Gson gson = new Gson();
-        out.println(gson.toJson(session.getAttribute("productsInCart")));
+        out.println("{'answer': 'OK!'}");
     }
 
     @Override
@@ -51,6 +53,5 @@ public class CartController extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
 
-        Gson gson = new Gson();
     }
 }
