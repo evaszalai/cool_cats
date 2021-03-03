@@ -94,7 +94,7 @@ export let dom = {
             let quantity = row.querySelector('.quantity').value;
             let subPrice = row.querySelector('[data-subprice]');
 
-            if (quantity === '0') {
+            if (quantity <= 0) {
                 row.remove();
             }
 
