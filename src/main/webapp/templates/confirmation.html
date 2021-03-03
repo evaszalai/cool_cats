@@ -28,6 +28,8 @@
 </head>
 <body>
 <div th:replace="navbar.html :: navbar"></div>
+<div class="container">
+<div class="card">
 <h5 class="modal-title" id="exampleModalLabel">
     Thank you for your purchase!
 </h5>
@@ -35,16 +37,16 @@
 <p th:text="${orderId}"></p>
 <p>Date:</p>
 <p th:text="${date}"></p>
-<div class="card">
+<div>
     <div>Order details:</div>
+    <table class="table table-image">
     <thead>
     <tr>
-        <th scope="col"></th>
+        <th scope="col"> </th>
         <th scope="col">Product</th>
         <th scope="col">Price</th>
         <th scope="col">Qty</th>
         <th scope="col">Total</th>
-        <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody class="shopping-cart-table">
@@ -56,11 +58,15 @@
         <td th:text="${prod.name}">Name</td>
         <td data-unitprice th:text="${prod.getPrice()}">$12</td>
         <td class="qty">1</td>
-        <td data-subprice>$12</td>
+        <td data-subprice th:text="${prod.getPrice()}">$12</td>
     </tr>
     </tbody>
+    </table>
     <p>Total:</p>
-    <p th:text="amount">23</p>
+    <p th:text="${amount}">23</p>
 </div>
+</div>
+</div>
+<div th:replace="footer.html :: copy"></div>
 </body>
 </html>
