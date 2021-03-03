@@ -1,5 +1,15 @@
 const payment = {
 
+    init: function () {
+        this.addEventListener();
+    },
+
+    addEventListener: function () {
+        let selectButton = document.querySelector('#CreditCardType');
+
+        selectButton.addEventListener('change', payment.changePaymentCredentials);
+    },
+
     changePaymentCredentials: function () {
         let paymentMethod = document.querySelector('#CreditCardType').value;
         let paymentCredentials = document.querySelector('#payment-credentials');
@@ -81,3 +91,5 @@ const payment = {
         paymentCredentials.insertAdjacentHTML('beforeend', payPalCredentials);
     }
 }
+
+payment.init();
