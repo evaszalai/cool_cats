@@ -1,9 +1,9 @@
 package com.codecool.shop.dao.implementation;
 
-public class ProductId {
+public class ProductInCart {
     private int id;
 
-    public ProductId(int id) {
+    public ProductInCart(int id) {
         this.id = id;
     }
 
@@ -14,4 +14,5 @@ public class ProductId {
     public void setId(int id) {
         this.id = id;
     }
+
 }
