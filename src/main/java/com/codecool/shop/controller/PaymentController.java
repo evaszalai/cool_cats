@@ -34,8 +34,11 @@ public class PaymentController extends HttpServlet {
         context.setVariable("products", productDataStore.getAll());
 
         engine.process("payment.html", context, resp.getWriter());
+    }
 
-        System.out.println(country + firstName + lastName + address + city + zipCode + phoneNumber + email);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("/");
     }
 
 }
