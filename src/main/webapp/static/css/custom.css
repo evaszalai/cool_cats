@@ -82,7 +82,7 @@
 .container {
     padding-left: 2rem;
     padding-right: 2rem;
-    padding-top: 100px;
+    margin-top: 80px;
 }
 
 .price {
@@ -91,6 +91,13 @@
 
 .modal-footer {
     padding-top: 0;
+}
+
+#description {
+    border: none;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14pt;
 }
 
 
