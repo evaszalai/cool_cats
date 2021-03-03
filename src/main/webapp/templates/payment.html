@@ -5,22 +5,22 @@
     <title>CoolCats</title>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!--&lt;!&ndash;CREDIT CART PAYMENT&ndash;&gt;-->
+<!--    CREDIT CART PAYMENT     -->
 <div class="panel panel-info">
     <div class="panel-heading"><span><i class="glyphicon glyphicon-lock"></i></span> Secure Payment</div>
     <div class="panel-body">
         <div class="form-group">
-            <div class="col-md-12"><strong>Card Type:</strong></div>
+            <div class="col-md-12"><strong>Payment Type:</strong></div>
             <div class="col-md-12">
                 <select id="CreditCardType" name="CreditCardType" class="form-control">
-                    <option value="5">Visa</option>
-                    <option value="6">MasterCard</option>
-                    <option value="7">American Express</option>
-                    <option value="8">Discover</option>
+                    <option value="5">Credit Card</option>
+                    <option value="6">PayPal</option>
                 </select>
             </div>
         </div>
@@ -68,19 +68,6 @@
                     <option value="2024">2024</option>
                     <option value="2025">2025</option>
                 </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12">
-                <span>Pay secure using your credit card.</span>
-            </div>
-            <div class="col-md-12">
-                <ul class="cards">
-                    <li class="visa hand">Visa</li>
-                    <li class="mastercard hand">MasterCard</li>
-                    <li class="amex hand">Amex</li>
-                </ul>
-                <div class="clearfix"></div>
             </div>
         </div>
         <div class="form-group">

@@ -17,7 +17,16 @@ import java.io.IOException;
 public class PaymentController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String country = req.getParameter("country");
+        String firstName = req.getParameter("first_name");
+        String lastName = req.getParameter("last_name");
+        String address = req.getParameter("address");
+        String city = req.getParameter("city");
+        String zipCode = req.getParameter("zip_code");
+        String phoneNumber = req.getParameter("phone_number");
+        String email = req.getParameter("email_address");
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -25,6 +34,8 @@ public class PaymentController extends HttpServlet {
         context.setVariable("products", productDataStore.getAll());
 
         engine.process("payment.html", context, resp.getWriter());
+
+        System.out.println(country + firstName + lastName + address + city + zipCode + phoneNumber + email);
     }
 
 }
