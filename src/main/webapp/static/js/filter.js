@@ -10,6 +10,7 @@ const filter = {
         for (let category of document.querySelectorAll(".supplierSelector")) {
             category.addEventListener("click", filter.getProductBySupplier);
         }
+
     },
     getProductByCategory: function (e) {
         fetch("/category?id=" + e.target.dataset.id)
