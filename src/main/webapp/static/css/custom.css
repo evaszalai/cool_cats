@@ -9,7 +9,7 @@
 }
 
 .cart {
-    float: right;
+    float: right !important;
 }
 
 .card {
