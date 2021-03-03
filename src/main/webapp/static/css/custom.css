@@ -31,10 +31,6 @@ body{
     float: right !important;
 }
 
-.card {
-    margin-top: 10px;
-}
-
 .glyphicon {
     margin-right:5px;
 }
@@ -115,6 +111,11 @@ body{
 .jumbotron {
     margin-top: 65px;
 }
+
+.card {
+    margin: 10px;
+}
+
 #description {
     border: none;
     text-align: center;
@@ -125,10 +126,9 @@ body{
     padding: 10pt;
     background: rgba(1, 1, 1, 0.6);
     color: white;
-
 }
 
-
-.card {
-    margin: 10px;
+#confirmation {
+    padding: 20px;
+    color: rgb(14, 136, 113);
 }
