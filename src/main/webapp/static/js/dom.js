@@ -19,6 +19,7 @@ export let dom = {
     addToCart: function (e) {
         let data = {};
         data.id = e.target.dataset.productid;
+        data.action = "up";
         dataHandler._api_post("/cart", data, function (response) {
         })
     },
@@ -82,7 +83,31 @@ export let dom = {
         for (let product of productsInCart) {
             cartTableBody.insertAdjacentHTML("beforeend", dom.makeCartRow(product));
         }
+        for (let button of document.querySelectorAll(".qty-up")) {
+            button.addEventListener("click", dom.productQuantityUp);
+        }
+        for (let button of document.querySelectorAll(".qty-down")) {
+            button.addEventListener("click", dom.productQuantityDown);
+        }
         dom.shoppingCartPriceInit();
+    },
+    productQuantityUp(e) {
+        let data = {};
+        data.id = e.target.dataset.productid;
+        data.action = "up";
+        dataHandler._api_post("/cart", data, function (response) {
+            e.target.nextSibling.nextElementSibling.innerHTML = parseInt(e.target.nextSibling.nextElementSibling.innerHTML) + 1;
+            // dom.refreshQuantity();
+        })
+    },
+    productQuantityDown(e) {
+        let data = {};
+        data.id = e.target.dataset.productid;
+        data.action = "down";
+        dataHandler._api_post("/cart", data, function (response) {
+            e.target.previousSibling.previousElementSibling.innerHTML = parseInt(e.target.previousSibling.previousElementSibling.innerHTML) - 1;
+            dom.refreshQuantity();
+        })
     },
     makeCartRow: function (product) {
         return `<tr>
@@ -91,18 +116,23 @@ export let dom = {
             </td>
             <td>${product.name}</td>
             <td data-unitprice>${product.defaultPrice}</td>
-            <td class="qty"><input type="text" class="quantity" data-productid="${product.id}" value="${product.quantity}"></td>
-            <td data-subprice></td>
-            <td>
-                <a href="#" class="btn btn-danger btn-sm">
-                    <i class="fa fa-times"></i>
-                </a>
+<!--            <td class="qty"><input type="text" class="quantity" data-productid="${product.id}" value="${product.quantity}"></td>-->
+            <td class="qty">
+            <button class="btn qty-up" data-productid="${product.id}"><i class="fas fa-plus"></i></button>
+            <span class="quantity">${product.quantity}</span>
+            <button class="btn qty-down" data-productid="${product.id}"><i class="fas fa-minus"></i></button>
             </td>
+            <td data-subprice></td>
+<!--            <td>-->
+<!--                <a href="#" class="btn btn-danger btn-sm">-->
+<!--                    <i class="fa fa-times"></i>-->
+<!--                </a>-->
+<!--            </td>-->
         </tr>`
     },
     shoppingCartPriceInit: function () {
         dom.displaySubPrice().then(() => dom.displayTotalPrice());
-        dom.addEventListenerToQuantityField();
+        dom.changeQuantityFieldValue();
     },
     displayTotalPrice: function () {
         let totalPrice = 0;
@@ -119,7 +149,7 @@ export let dom = {
 
         for (let row of shoppingCartTable.rows) {
             let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML);
-            let quantity = row.querySelector('.quantity').value;
+            let quantity = parseInt(row.querySelector('.quantity').innerHTML);
             let subPrice = row.querySelector('[data-subprice]');
 
             if (quantity <= 0) {
@@ -129,7 +159,7 @@ export let dom = {
             subPrice.innerHTML = (unitPrice * quantity).toString();
         }
     },
-    addEventListenerToQuantityField: function () {
+    changeQuantityFieldValue: function (action) {
         let fields = document.querySelectorAll('.quantity');
 
         for (let field of fields) {
