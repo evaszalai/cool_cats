@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(urlPatterns = {"/cart"})
 public class AddToCart extends HttpServlet {
@@ -21,15 +20,6 @@ public class AddToCart extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        if (session == null) {
-            List<int> productIds = new ArrayList<String>();
-        }
-
-        productIds.add("Test1");
-        productIds.add("Test2");
-
-        HttpSession session = req.getSession();
-        session.setAtrribute("Avr", names);
     }
 
     @Override
