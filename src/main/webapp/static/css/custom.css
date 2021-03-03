@@ -1,9 +1,7 @@
-/*.navbar {
-    position: fixed !important;
-    top: 0 !important;
-    z-index: 1 !important;
+body{
+    background-image: url("/static/img/backgroundTiger.jpeg");
 }
-*/
+
 .navbar-brand {
     font-size: 20pt !important;
 }
@@ -98,6 +96,7 @@
     text-align: center;
     margin-bottom: 10px;
     font-size: 14pt;
+
 }
 
 
