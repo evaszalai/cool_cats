@@ -28,20 +28,14 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 
-    <script src="/static/js/shopping-cart.js"></script>
-    <script src="/static/js/filter.js" defer></script>
+    <script type="module" src="/static/js/main.js" defer></script>
 
 </head>
 
 <body>
-
 <div th:replace="navbar.html :: navbar"></div>
 
 <div class="container">
-    <div class="card">
-
-    </div>
-
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
@@ -57,7 +51,7 @@
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" href="#">Add to cart</a>
+                                <a class="btn btn-success shoppingCart" th:attr="data-productid=${prod.id}">Add to cart</a>
                             </div>
                         </div>
                         <div class="col-sm">
