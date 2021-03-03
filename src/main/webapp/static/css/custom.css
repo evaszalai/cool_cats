@@ -1,11 +1,19 @@
-.navbar {
+/*.navbar {
     position: fixed !important;
     top: 0 !important;
     z-index: 1 !important;
 }
-
+*/
 .navbar-brand {
     font-size: 20pt !important;
+}
+
+.cart {
+    float: right;
+}
+
+.card {
+    margin-top: 10px;
 }
 
 .glyphicon {
