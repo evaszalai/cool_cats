@@ -33,17 +33,15 @@
 <h5 class="modal-title" id="exampleModalLabel">
     Thank you for your purchase!
 </h5>
-<p>Order id: </p>
-<p th:text="${orderId}"></p>
-<p>Date:</p>
-<p th:text="${date}"></p>
+    <p>Order id: <span class="price text-success"  th:text="${orderId}">1</span></p>
+    <p>Date: <span class="price text-success"  th:text="${date}">1</span></p>
 <div>
     <div>Order details:</div>
     <table class="table table-image">
     <thead>
     <tr>
         <th scope="col"> </th>
-        <th scope="col">Product</th>
+        <th scope="col">Cat</th>
         <th scope="col">Price</th>
         <th scope="col">Qty</th>
         <th scope="col">Total</th>
@@ -62,8 +60,7 @@
     </tr>
     </tbody>
     </table>
-    <p>Total:</p>
-    <p th:text="${amount}">23</p>
+    <p>Total: <span class="price text-success"  th:text="${amount} + '.00 USD'">1</span></p>
 </div>
 </div>
 </div>
