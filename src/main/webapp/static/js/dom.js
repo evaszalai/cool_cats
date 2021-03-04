@@ -80,7 +80,9 @@ export let dom = {
     shoppingCartInit: function () {
         dataHandler._api_get("/cart", function (productsInCart) {
             dom.fillCartWithProducts(productsInCart);
+            dom.checkIfCartEmpty();
         });
+
     },
     fillCartWithProducts(productsInCart) {
         let cartTableBody = document.querySelector(".shopping-cart-table");
@@ -130,8 +132,8 @@ export let dom = {
         </tr>`
     },
     shoppingCartPriceInit: function () {
-        dom.displaySubPrice().then(() => dom.displayTotalPrice());
         dom.changeQuantityFieldValue();
+        dom.displaySubPrice().then(() => dom.displayTotalPrice());
     },
     displayTotalPrice: function () {
         let totalPriceToDisplay = 0;
@@ -144,7 +146,6 @@ export let dom = {
         }
 
         totalPrice.classList.add('enMoney');
-        console.log(totalPriceToDisplay)
         totalPrice.innerHTML = Number(totalPriceToDisplay).toLocaleString('en');
     },
     displaySubPrice: async function () {
@@ -185,6 +186,8 @@ export let dom = {
 
             shoppingCartTable.insertAdjacentHTML('beforeend', message)
             checkoutButton.disabled = true;
+        } else {
+            checkoutButton.disabled = false;
         }
     }
 }
