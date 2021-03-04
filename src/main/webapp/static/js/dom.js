@@ -207,11 +207,5 @@ export let dom = {
         let cart = document.querySelector('#shoppingCart');
 
         cart.innerHTML = itemCounter > 0 ? `View cart (${itemCounter})` : 'View cart';
-
-        // if (itemCounter > 0) {
-        //     cart.innerHTML = `View cart (${itemCounter})`;
-        // } else {
-        //     cart.innerHTML = 'View cart';
-        // }
     }
 }
