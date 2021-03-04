@@ -14,10 +14,9 @@ public class Order {
 
     private Customer customer;
 
-    public Order(List<Product> productList, Customer customer) {
+    public Order(List<Product> productList) {
         this.productList = productList;
         this.date = LocalDate.now();
-        this.customer = customer;
         this.id = generateId();
     }
 
