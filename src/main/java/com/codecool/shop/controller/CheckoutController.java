@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -24,6 +27,12 @@ public class CheckoutController extends HttpServlet {
 
         List<Product> productsInCart = Util.collectProductWithQuantity((HashMap<Integer, Integer>) session.getAttribute("productsInCart"));
         float totalPrice = Util.getTotalPriceOfProducts(productsInCart);
+
+        Order newOrder = new Order(productsInCart, totalPrice);
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+        orderDataStore.add(newOrder);
+        System.out.println(newOrder.getId());
+        session.setAttribute("orderId", newOrder.getId());
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
