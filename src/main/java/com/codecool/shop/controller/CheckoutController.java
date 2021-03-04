@@ -31,7 +31,6 @@ public class CheckoutController extends HttpServlet {
         Order newOrder = new Order(productsInCart, totalPrice);
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         orderDataStore.add(newOrder);
-        System.out.println(newOrder.getId());
         session.setAttribute("orderId", newOrder.getId());
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

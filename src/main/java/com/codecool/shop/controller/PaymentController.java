@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.CustomerDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Customer;
@@ -23,8 +24,6 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-//    public Customer(String country, String firstName, String lastName, String address, String city, String postCode, String phoneNumber, String email){
         String country = req.getParameter("country");
         String firstName = req.getParameter("first_name");
         String lastName = req.getParameter("last_name");
@@ -34,16 +33,18 @@ public class PaymentController extends HttpServlet {
         String phoneNumber = req.getParameter("phone_number");
         String email = req.getParameter("email_address");
         Customer newCustomer = new Customer(country,firstName,lastName,address,city,zipCode,phoneNumber,email);
+        CustomerDaoMem customerDataStore = CustomerDaoMem.getInstance();
+        customerDataStore.add(newCustomer);
 
-
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        HttpSession session = req.getSession();
 
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         Order order = orderDataStore.find((int)session.getAttribute("orderId"));
+        order.setCustomer(newCustomer);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("products", productDataStore.getAll());
+        context.setVariable("orderId", order.getId());
 
         engine.process("payment.html", context, resp.getWriter());
     }
