@@ -41,6 +41,7 @@ export let dom = {
         }
     },
     makeACard: function (product) {
+        let price = Number(product.defaultPrice).toLocaleString('en');
         return `
             <div class="col col-sm-12 col-md-6 col-lg-4">
             <div class="card">
@@ -53,7 +54,7 @@ export let dom = {
                     <div class="row">
                         <div class="col-sm">
                             <div class="card-text">
-                                <p class="lead">${product.defaultPrice} ${product.defaultCurrency}</p>
+                                <p class="lead enMoney">${price}</p>
                             </div>
                             <div class="card-text">
                                 <a class="btn btn-success" href="#">Add to cart</a>
