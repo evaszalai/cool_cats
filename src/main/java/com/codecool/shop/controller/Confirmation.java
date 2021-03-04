@@ -67,4 +67,10 @@ public class Confirmation extends HttpServlet {
         session.invalidate();
         engine.process("confirmation.html", context, response.getWriter());
     }
-}
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/");
+    }
+
+    }
