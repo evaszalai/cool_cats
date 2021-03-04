@@ -47,24 +47,23 @@ public class Order {
     public String toString() {
         StringBuilder orderInformations = new StringBuilder();
         orderInformations.append("Customer Details:\n");
-        orderInformations.append("name: " + this.customer.getFirstName() + " " + this.customer.getLastName() + "\n");
-        orderInformations.append("address: " + this.customer.getAddress() + "\n");
-        orderInformations.append("city: " + this.customer.getCity() + "\n");
-        orderInformations.append("address: " + this.customer.getAddress() + "\n");
-        orderInformations.append("postCode: " + this.customer.getPostCode() + "\n");
-        orderInformations.append("phoneNumber: " + this.customer.getPhoneNumber() + "\n");
-        orderInformations.append("email: " + this.customer.getEmail() + "\n");
+        orderInformations.append("Mame: " + this.customer.getFirstName() + " " + this.customer.getLastName() + "\n");
+        orderInformations.append("Address: " + this.customer.getAddress() + "\n");
+        orderInformations.append("City: " + this.customer.getCity() + "\n");
+        orderInformations.append("Post Code: " + this.customer.getPostCode() + "\n");
+        orderInformations.append("Phone Number: " + this.customer.getPhoneNumber() + "\n");
+        orderInformations.append("E-mail: " + this.customer.getEmail() + "\n");
         orderInformations.append("Order Details:\n");
         orderInformations.append("order id: " + this.id + "\n");
         orderInformations.append("date: " + this.date + "\n");
         orderInformations.append("product(s):\n");
         for (Product product : productList) {
             orderInformations.append("product name: " + product.getName() + "\n");
-            orderInformations.append("product category: " + product.getProductCategory() + "\n");
-            orderInformations.append("product continent: " + product.getSupplier() + "\n");
-            orderInformations.append("product unitprice: " + product.getDefaultPrice() + " " + product.getDefaultCurrency() + "\n");
+            orderInformations.append("product category: " + product.getProductCategory().name + "\n");
+            orderInformations.append("product continent: " + product.getSupplier().getName() + "\n");
+            orderInformations.append("product unit price: " + product.getDefaultPrice() + " " + product.getDefaultCurrency() + "\n");
             orderInformations.append("product quantity: " + product.getQuantity() + "\n");
-            orderInformations.append("------------------");
+            orderInformations.append("------------------" + "\n");
         }
         orderInformations.append("Total price: " + this.totalPrice + "\n");
 

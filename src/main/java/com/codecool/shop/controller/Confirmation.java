@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.mail.MessagingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,21 +31,35 @@ public class Confirmation extends HttpServlet {
     Gson gson = builder.create();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         OrderDao orderDataStore = OrderDaoMem.getInstance();
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
+
         int orderId = (int) session.getAttribute("orderId");
         context.setVariable("orderId", orderId);
         Order order = orderDataStore.find(orderId);
         Customer customer = order.getCustomer();
+
         context.setVariable("customer", customer);
         context.setVariable("date", order.getDate());
         context.setVariable("amount", order.getTotalPrice());
         context.setVariable("products", order.getProductList());
+
         String filename = "order" + String.valueOf(order.getId()) + ".json";
         this.gson.toJson(order, new FileWriter(filename));
+
+        String email = customer.getEmail();
+        String message = order.toString();
+
+        try {
+            CreateEmail.sendMail(email, message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
         session.invalidate();
         engine.process("confirmation.html", context, response.getWriter());
     }
