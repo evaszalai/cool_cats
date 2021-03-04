@@ -49,7 +49,11 @@ public class Confirmation extends HttpServlet {
         context.setVariable("products", order.getProductList());
 
         String filename = "order" + String.valueOf(order.getId()) + ".json";
-        this.gson.toJson(order, new FileWriter(filename));
+        String jsonString = gson.toJson(order);
+        try (FileWriter file = new FileWriter(filename)){
+            file.write(jsonString);
+            file.flush();
+        }
 
         String email = customer.getEmail();
         String message = order.toString();
