@@ -141,6 +141,10 @@ body{
     object-fit: cover;
 }
 
+.address {
+    padding-left: 50px;
+}
+
 .enMoney::before {
     content:"$";
 }
