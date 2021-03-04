@@ -37,10 +37,16 @@ public class CheckoutController extends HttpServlet {
             product.setQuantity(value);
             productsInCart.add(product);
         }
+        float totalPrice = 0;
+        for (Product product : productsInCart) {
+            totalPrice += (product.getDefaultPrice()*product.getQuantity());
+        }
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("products", productsInCart);
+        context.setVariable("totalPrice", totalPrice);
+        context.setVariable("currency", productsInCart.get(0).getDefaultCurrency());
 
         engine.process("checkout.html", context, resp.getWriter());
     }
