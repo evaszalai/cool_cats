@@ -6,7 +6,7 @@ import java.util.List;
 public class Order {
     private int id;
 
-    private int highest = 0;
+    private static int highest = 0;
 
     private LocalDate date;
 
@@ -19,7 +19,6 @@ public class Order {
         this.date = LocalDate.now();
         this.customer = customer;
         this.id = generateId();
-
     }
 
     private int generateId(){
@@ -28,11 +27,11 @@ public class Order {
     }
 
     private int getHighest(){
-        return this.highest;
+        return highest;
     }
 
-    public void setHighest(int highest) {
-        this.highest = highest;
+    public void setHighest(int num) {
+        highest = num;
     }
 
     public int getId() {
