@@ -18,6 +18,7 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String country = req.getParameter("country");
         String firstName = req.getParameter("first_name");
         String lastName = req.getParameter("last_name");
