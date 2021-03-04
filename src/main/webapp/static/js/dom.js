@@ -97,7 +97,7 @@ export let dom = {
         data.action = "up";
         dataHandler._api_post("/cart", data, function (response) {
             e.target.nextSibling.nextElementSibling.innerHTML = parseInt(e.target.nextSibling.nextElementSibling.innerHTML) + 1;
-            // dom.refreshQuantity();
+            dom.refreshQuantity();
         })
     },
     productQuantityDown(e) {
@@ -116,18 +116,12 @@ export let dom = {
             </td>
             <td>${product.name}</td>
             <td data-unitprice>${product.defaultPrice}</td>
-<!--            <td class="qty"><input type="text" class="quantity" data-productid="${product.id}" value="${product.quantity}"></td>-->
             <td class="qty">
-            <button class="btn qty-up" data-productid="${product.id}"><i class="fas fa-plus"></i></button>
+            <button class="btn fas fa-plus qty-up" data-productid="${product.id}"></button>
             <span class="quantity">${product.quantity}</span>
-            <button class="btn qty-down" data-productid="${product.id}"><i class="fas fa-minus"></i></button>
+            <button class="btn fas fa-minus qty-down" data-productid="${product.id}"></button>
             </td>
             <td data-subprice></td>
-<!--            <td>-->
-<!--                <a href="#" class="btn btn-danger btn-sm">-->
-<!--                    <i class="fa fa-times"></i>-->
-<!--                </a>-->
-<!--            </td>-->
         </tr>`
     },
     shoppingCartPriceInit: function () {

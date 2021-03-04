@@ -22,7 +22,6 @@ public class CartController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductInCart productId = new Gson().fromJson(req.getReader(), ProductInCart.class);
-        System.out.println(productId.getId() + " - " + productId.getAction());
         HttpSession session = req.getSession();
         HashMap<Integer, Integer> productsInCart;
         if (session.getAttribute("productsInCart") == null) {
