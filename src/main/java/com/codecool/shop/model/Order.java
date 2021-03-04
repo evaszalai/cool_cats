@@ -22,16 +22,16 @@ public class Order {
     }
 
     private int generateId(){
-        this.setHighest(getHighest() + 1);
-        return getHighest();
+        Order.setHighest(Order.getHighest() + 1);
+        return Order.getHighest();
     }
 
-    private int getHighest(){
-        return highest;
+    private static int getHighest(){
+        return Order.highest;
     }
 
-    public void setHighest(int num) {
-        highest = num;
+    private static void setHighest(int num) {
+        Order.highest = num;
     }
 
     public int getId() {

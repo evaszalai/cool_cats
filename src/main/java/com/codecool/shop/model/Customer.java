@@ -3,6 +3,8 @@ package com.codecool.shop.model;
 public class Customer {
     int id;
 
+    private static int highest = 0;
+
     public Customer(String country, String firstName, String lastName, String address, String city, String postCode, String phoneNumber, String email){
         this.country = country;
         this.firstName = firstName;
@@ -12,6 +14,20 @@ public class Customer {
         this.postCode = postCode;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.id = generateId();
+    }
+
+    private static int generateId(){
+        Customer.setHighest(getHighest() + 1);
+        return Customer.getHighest();
+    }
+
+    private static int getHighest() {
+        return Customer.highest;
+    }
+
+    public static void setHighest(int highest) {
+        Customer.highest = highest;
     }
 
     String country;
