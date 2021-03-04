@@ -18,6 +18,7 @@ public class Util {
             Integer value = entry.getValue();
             Product product = productDataStore.find(key);
             product.setQuantity(value);
+            product.setTotalPrice(product.getDefaultPrice()*value);
             productsInCart.add(product);
         }
         return productsInCart;
