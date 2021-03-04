@@ -131,3 +131,7 @@ body{
     height: 200px;
     object-fit: cover;
 }
+
+.enMoney::before {
+    content:"$";
+}
