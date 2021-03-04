@@ -11,10 +11,13 @@ export let dom = {
         for (let category of document.querySelectorAll(".supplierSelector")) {
             category.addEventListener("click", dom.getProductBySupplier);
         }
+        dom.addEventListenerToAddToCartButtons();
+        document.querySelector("#shoppingCart").addEventListener("click", dom.shoppingCartInit)
+    },
+    addEventListenerToAddToCartButtons: function () {
         for (let addToCartButton of document.querySelectorAll("[data-productid]")) {
             addToCartButton.addEventListener("click", dom.addToCart);
         }
-        document.querySelector("#shoppingCart").addEventListener("click", dom.shoppingCartInit)
     },
     addToCart: function (e) {
         let data = {};
@@ -39,6 +42,7 @@ export let dom = {
         for (let product of products) {
             productsContainer.insertAdjacentHTML("beforeend", dom.makeACard(product));
         }
+        dom.addEventListenerToAddToCartButtons();
     },
     makeACard: function (product) {
         let price = Number(product.defaultPrice).toLocaleString('en');
@@ -57,7 +61,7 @@ export let dom = {
                                 <p class="lead enMoney">${price}</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" href="#">Add to cart</a>
+                                <a class="btn btn-success shoppingCart" href="#" data-productid="${product.id}">Add to cart</a>
                             </div>
                         </div>
                         <div class="col-sm">
