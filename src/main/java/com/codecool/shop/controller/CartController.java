@@ -19,10 +19,11 @@ import java.util.*;
 
 @WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet {
+    HttpSession session;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductInCart productId = new Gson().fromJson(req.getReader(), ProductInCart.class);
-        HttpSession session = req.getSession();
+        session = req.getSession();
         HashMap<Integer, Integer> productsInCart;
         if (session.getAttribute("productsInCart") == null) {
             productsInCart = new HashMap<Integer, Integer>();
@@ -60,17 +61,19 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        session = req.getSession();
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> productsInCart = new ArrayList<Product>();
         HashMap<Integer, Integer> productsIdAndQuantity = (HashMap<Integer, Integer>) session.getAttribute("productsInCart");
-        for (Map.Entry<Integer, Integer> entry : productsIdAndQuantity.entrySet()) {
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
-            Product product = productDataStore.find(key);
-            product.setQuantity(value);
-            productsInCart.add(product);
+        if (productsIdAndQuantity != null) {
+            for (Map.Entry<Integer, Integer> entry : productsIdAndQuantity.entrySet()) {
+                Integer key = entry.getKey();
+                Integer value = entry.getValue();
+                Product product = productDataStore.find(key);
+                product.setQuantity(value);
+                productsInCart.add(product);
+            }
         }
 
         resp.setContentType("application/json");
