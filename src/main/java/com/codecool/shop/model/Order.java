@@ -6,7 +6,6 @@ import java.util.List;
 public class Order {
     private int id;
     private float totalPrice;
-    private static int highest = 0;
     private LocalDate date;
     private List<Product> productList;
     private Customer customer;
@@ -17,21 +16,16 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-
     public float getTotalPrice() {
         return totalPrice;
     }
 
-    private static int getHighest(){
-        return Order.highest;
-    }
-
-    private static void setHighest(int num) {
-        Order.highest = num;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getDate() {
@@ -44,10 +38,6 @@ public class Order {
 
     public Customer getCustomer() {
         return customer;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setCustomer(Customer customer) {
