@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>CoolCats</title>
@@ -33,7 +33,7 @@
                         <div class="pull-right"><small><a class="afix-1" href="#">Edit Cart</a></small></div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
+                        <div class="form-group" th:each="prod,iterStat : ${products}">
                             <div class="col-sm-3 col-xs-3">
                                 <img class="img-responsive"
                                      src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg"/>
