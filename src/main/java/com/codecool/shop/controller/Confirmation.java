@@ -7,6 +7,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Order;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -30,6 +31,8 @@ public class Confirmation extends HttpServlet {
         int orderId = (int) session.getAttribute("orderId");
         context.setVariable("orderId", orderId);
         Order order = orderDataStore.find(orderId);
+        Customer customer = order.getCustomer();
+        context.setVariable("customer", customer);
         context.setVariable("date", order.getDate());
         context.setVariable("amount", order.getTotalPrice());
         context.setVariable("products", order.getProductList());

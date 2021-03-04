@@ -45,11 +45,19 @@
 </div>
 <div class="container">
 <div class="card" id="confirmation">
-<h5 class="modal-title" id="exampleModalLabel">
+<h5 class="modal-title" id="exampleModalLabel" th:text="'Thank you for your purchase, ' + ${customer.getFirstName()} + '!'">
     Thank you for your purchase!
 </h5>
+    <p th:text="'You will receive an e-mail with your order details at ' + ${customer.getEmail()} + '.'">e</p>
     <p>Order id: <span class="price text-success"  th:text="${orderId}">1</span></p>
     <p>Date: <span class="price text-success"  th:text="${date}">1</span></p>
+    <p>Name: <span class="price text-success" th:text="${customer.getFirstName()} + ' ' + ${customer.getLastName()}">n</span></p>
+    <p>Address: </p>
+    <div class="address">
+        <p th:text="${customer.getAddress()}">a</p>
+        <p th:text="${customer.getPostCode()} + ' ' + ${customer.getCity()}">c</p>
+        <p th:text="${customer.getCountry()}"></p>
+    </div>
 <div>
     <div>Order details:</div>
     <table class="table table-image">
