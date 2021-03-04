@@ -130,14 +130,18 @@ export let dom = {
         dom.changeQuantityFieldValue();
     },
     displayTotalPrice: function () {
-        let totalPrice = 0;
+        let totalPriceToDisplay = 0;
         let subPrices = document.querySelectorAll('[data-subprice]');
+        let totalPrice = document.querySelector('.price')
 
         for (let subPrice of subPrices) {
-            totalPrice += parseInt(subPrice.innerHTML);
+            let intSubPrice = Number(subPrice.innerHTML.replace(/[^0-9.-]+/g,""));
+            totalPriceToDisplay += parseInt(intSubPrice);
         }
 
-        document.querySelector('.price').innerHTML = Number(totalPrice).toLocaleString('en');
+        totalPrice.classList.add('enMoney');
+        console.log(totalPriceToDisplay)
+        totalPrice.innerHTML = Number(totalPriceToDisplay).toLocaleString('en');
     },
     displaySubPrice: async function () {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
@@ -151,7 +155,8 @@ export let dom = {
                 row.remove();
             }
 
-            subPrice.innerHTML = (unitPrice * quantity).toString();
+            subPrice.classList.add('enMoney');
+            subPrice.innerHTML = Number(unitPrice * quantity).toLocaleString('en');
         }
     },
     changeQuantityFieldValue: function (action) {
