@@ -66,12 +66,14 @@ public class CartController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> productsInCart = new ArrayList<Product>();
         HashMap<Integer, Integer> productsIdAndQuantity = (HashMap<Integer, Integer>) session.getAttribute("productsInCart");
-        for (Map.Entry<Integer, Integer> entry : productsIdAndQuantity.entrySet()) {
-            Integer key = entry.getKey();
-            Integer value = entry.getValue();
-            Product product = productDataStore.find(key);
-            product.setQuantity(value);
-            productsInCart.add(product);
+        if (productsIdAndQuantity != null) {
+            for (Map.Entry<Integer, Integer> entry : productsIdAndQuantity.entrySet()) {
+                Integer key = entry.getKey();
+                Integer value = entry.getValue();
+                Product product = productDataStore.find(key);
+                product.setQuantity(value);
+                productsInCart.add(product);
+            }
         }
 
         resp.setContentType("application/json");
