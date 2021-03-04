@@ -137,7 +137,7 @@ export let dom = {
             totalPrice += parseInt(subPrice.innerHTML);
         }
 
-        document.querySelector('.price').innerHTML = totalPrice.toString();
+        document.querySelector('.price').innerHTML = Number(totalPrice).toLocaleString('en');
     },
     displaySubPrice: async function () {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
