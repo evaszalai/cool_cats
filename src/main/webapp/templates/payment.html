@@ -19,7 +19,7 @@
         <div class="form-group">
             <div class="col-md-12"><strong>Payment Type:</strong></div>
             <div class="col-md-12">
-                <select id="CreditCardType" name="CreditCardType" class="form-control">
+                <select required id="CreditCardType" name="CreditCardType" class="form-control">
                     <option value="credit-card">Credit Card</option>
                     <option value="paypal">PayPal</option>
                 </select>
@@ -28,18 +28,18 @@
         <div id="payment-credentials">
             <div class="form-group">
                 <div class="col-md-12"><strong>Credit Card Number:</strong></div>
-                <div class="col-md-12"><input type="text" class="form-control" name="credit_card_number" value=""/></div>
+                <div class="col-md-12"><input required type="number" class="form-control" name="credit_card_number" value=""/></div>
             </div>
             <div class="form-group">
                 <div class="col-md-12"><strong>Card CVV:</strong></div>
-                <div class="col-md-12"><input type="password" class="form-control" name="credit_card_code" value=""/></div>
+                <div class="col-md-12"><input required type="password" class="form-control" name="credit_card_code" value=""/></div>
             </div>
             <div class="form-group">
                 <div class="col-md-12">
                     <strong>Expiration Date</strong>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control" name="">
+                    <select required class="form-control" name="">
                         <option value="">Month</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -56,7 +56,7 @@
                     </select>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control" name="">
+                    <select required class="form-control" name="">
                         <option value="">Year</option>
                         <option value="2021">2021</option>
                         <option value="2022">2022</option>

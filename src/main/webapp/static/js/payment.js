@@ -29,18 +29,18 @@ const payment = {
         let creditCardCredentials =
             '<div class="form-group"">\n' +
             '                <div class="col-md-12"><strong>Credit Card Number:</strong></div>\n' +
-            '                <div class="col-md-12"><input type="text" style="width: 50%" class="form-control" name="credit_card_number" value=""/></div>\n' +
+            '                <div class="col-md-12"><input required type="number" style="width: 50%" class="form-control" name="credit_card_number" value=""/></div>\n' +
             '            </div>\n' +
             '            <div class="form-group">\n' +
             '                <div class="col-md-12"><strong>Card CVV:</strong></div>\n' +
-            '                <div class="col-md-12"><input type="password" class="form-control" name="credit_card_code" value=""/></div>\n' +
+            '                <div class="col-md-12"><input required type="password" class="form-control" name="credit_card_code" value=""/></div>\n' +
             '            </div>\n' +
             '            <div class="form-group">\n' +
             '                <div class="col-md-12">\n' +
             '                    <strong>Expiration Date</strong>\n' +
             '                </div>\n' +
             '                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">\n' +
-            '                    <select class="form-control" name="">\n' +
+            '                    <select required class="form-control" name="">\n' +
             '                        <option value="">Month</option>\n' +
             '                        <option value="01">01</option>\n' +
             '                        <option value="02">02</option>\n' +
@@ -57,7 +57,7 @@ const payment = {
             '                    </select>\n' +
             '                </div>\n' +
             '                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">\n' +
-            '                    <select class="form-control" name="">\n' +
+            '                    <select required class="form-control" name="">\n' +
             '                        <option value="">Year</option>\n' +
             '                        <option value="2021">2021</option>\n' +
             '                        <option value="2022">2022</option>\n' +
@@ -80,11 +80,11 @@ const payment = {
         let payPalCredentials =
             '<div class="form-group">\n' +
             '                <div class="col-md-12"><strong>Username:</strong></div>\n' +
-            '                <div class="col-md-12"><input type="text" class="form-control" name="username" value=""/></div>\n' +
+            '                <div class="col-md-12"><input required type="text" class="form-control" name="username" value=""/></div>\n' +
             '            </div>\n' +
             '            <div class="form-group">\n' +
             '                <div class="col-md-12"><strong>Password:</strong></div>\n' +
-            '                <div class="col-md-12"><input type="password" class="form-control" name="password" value=""/></div>\n' +
+            '                <div class="col-md-12"><input required type="password" class="form-control" name="password" value=""/></div>\n' +
             '</div>'
 
         paymentCredentials.insertAdjacentHTML('beforeend', payPalCredentials);

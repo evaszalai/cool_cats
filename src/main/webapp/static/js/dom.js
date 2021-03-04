@@ -45,6 +45,7 @@ export let dom = {
         dom.addEventListenerToAddToCartButtons();
     },
     makeACard: function (product) {
+        let price = Number(product.defaultPrice).toLocaleString('en');
         return `
             <div class="col col-sm-12 col-md-6 col-lg-4">
             <div class="card">
@@ -57,7 +58,7 @@ export let dom = {
                     <div class="row">
                         <div class="col-sm">
                             <div class="card-text">
-                                <p class="lead">${product.defaultPrice} ${product.defaultCurrency}</p>
+                                <p class="lead enMoney">${price}</p>
                             </div>
                             <div class="card-text">
                                 <a class="btn btn-success shoppingCart" href="#" data-productid="${product.id}">Add to cart</a>
@@ -79,7 +80,9 @@ export let dom = {
     shoppingCartInit: function () {
         dataHandler._api_get("/cart", function (productsInCart) {
             dom.fillCartWithProducts(productsInCart);
+            dom.checkIfCartEmpty();
         });
+
     },
     fillCartWithProducts(productsInCart) {
         let cartTableBody = document.querySelector(".shopping-cart-table");
@@ -114,12 +117,14 @@ export let dom = {
         })
     },
     makeCartRow: function (product) {
+        let unitPrice = product.defaultPrice.toLocaleString('en');
+
         return `<tr>
             <td class="w-25">
                 <img class="cart-img" src="/static/img/${product.name}.jpg" class="img-fluid img-thumbnail" alt="" />
             </td>
             <td>${product.name}</td>
-            <td data-unitprice>${product.defaultPrice}</td>
+            <td data-unitprice class="enMoney">${unitPrice}</td>
             <td class="qty">
             <button class="btn fas fa-plus qty-up" data-productid="${product.id}"></button>
             <span class="quantity">${product.quantity}</span>
@@ -129,24 +134,27 @@ export let dom = {
         </tr>`
     },
     shoppingCartPriceInit: function () {
-        dom.displaySubPrice().then(() => dom.displayTotalPrice());
         dom.changeQuantityFieldValue();
+        dom.displaySubPrice().then(() => dom.displayTotalPrice());
     },
     displayTotalPrice: function () {
-        let totalPrice = 0;
+        let totalPriceToDisplay = 0;
         let subPrices = document.querySelectorAll('[data-subprice]');
+        let totalPrice = document.querySelector('.price')
 
         for (let subPrice of subPrices) {
-            totalPrice += parseInt(subPrice.innerHTML);
+            let intSubPrice = Number(subPrice.innerHTML.replace(/[^0-9.-]+/g,""));
+            totalPriceToDisplay += parseInt(intSubPrice);
         }
 
-        document.querySelector('.price').innerHTML = totalPrice.toString();
+        totalPrice.classList.add('enMoney');
+        totalPrice.innerHTML = Number(totalPriceToDisplay).toLocaleString('en');
     },
     displaySubPrice: async function () {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
 
         for (let row of shoppingCartTable.rows) {
-            let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML);
+            let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML.replace(/[^0-9.-]+/g,""));
             let quantity = parseInt(row.querySelector('.quantity').innerHTML);
             let subPrice = row.querySelector('[data-subprice]');
 
@@ -154,7 +162,8 @@ export let dom = {
                 row.remove();
             }
 
-            subPrice.innerHTML = (unitPrice * quantity).toString();
+            subPrice.classList.add('enMoney');
+            subPrice.innerHTML = Number(unitPrice * quantity).toLocaleString('en');
         }
     },
     changeQuantityFieldValue: function (action) {
@@ -179,6 +188,8 @@ export let dom = {
 
             shoppingCartTable.insertAdjacentHTML('beforeend', message)
             checkoutButton.disabled = true;
+        } else {
+            checkoutButton.disabled = false;
         }
     }
 }
