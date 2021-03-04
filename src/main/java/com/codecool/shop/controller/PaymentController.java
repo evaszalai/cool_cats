@@ -41,7 +41,7 @@ public class PaymentController extends HttpServlet {
         OrderDao orderDataStore = OrderDaoMem.getInstance();
         Order order = orderDataStore.find((int)session.getAttribute("orderId"));
         order.setCustomer(newCustomer);
-
+        System.out.println(order.toString());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("orderId", order.getId());
