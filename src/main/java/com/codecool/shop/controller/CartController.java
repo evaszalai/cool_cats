@@ -63,17 +63,10 @@ public class CartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         session = req.getSession();
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> productsInCart = new ArrayList<Product>();
         HashMap<Integer, Integer> productsIdAndQuantity = (HashMap<Integer, Integer>) session.getAttribute("productsInCart");
         if (productsIdAndQuantity != null) {
-            for (Map.Entry<Integer, Integer> entry : productsIdAndQuantity.entrySet()) {
-                Integer key = entry.getKey();
-                Integer value = entry.getValue();
-                Product product = productDataStore.find(key);
-                product.setQuantity(value);
-                productsInCart.add(product);
-            }
+            productsInCart = Util.collectProductWithQuantity(productsIdAndQuantity);
         }
 
         resp.setContentType("application/json");
