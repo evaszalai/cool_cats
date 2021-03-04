@@ -81,13 +81,13 @@
                              class="img-fluid img-thumbnail">
                     </td>
                     <td th:text="${prod.name}">Name</td>
-                    <td data-unitprice th:text="${prod.getPrice()}">$12</td>
+                    <td data-unitprice th:text="${#numbers.formatCurrency(prod.getDefaultPrice())}">$12</td>
                     <td class="qty" th:text="${prod.getQuantity()}">1</td>
-                    <td data-subprice th:text="${prod.getDefaultPrice()} * ${prod.getQuantity()} + '.00 USD'">$12</td>
+                    <td data-subprice th:text="${#numbers.formatCurrency(prod.getDefaultPrice() * prod.getQuantity())}">$12</td>
                 </tr>
                 </tbody>
             </table>
-            <p>Total: <span class="price text-success" th:text="${amount} + '0 USD'">1</span></p>
+            <p>Total: <span class="price text-success" th:text="${#numbers.formatCurrency(amount)}">1</span></p>
         </div>
     </div>
 </div>
