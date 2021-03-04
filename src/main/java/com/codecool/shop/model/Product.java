@@ -5,6 +5,7 @@ import java.util.Currency;
 public class Product extends BaseModel {
 
     private float defaultPrice;
+    private float totalPrice;
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
@@ -58,6 +59,14 @@ public class Product extends BaseModel {
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
         this.supplier.addProduct(this);
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getQuantity() {
