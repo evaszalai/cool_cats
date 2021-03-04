@@ -117,12 +117,14 @@ export let dom = {
         })
     },
     makeCartRow: function (product) {
+        let unitPrice = product.defaultPrice.toLocaleString('en');
+
         return `<tr>
             <td class="w-25">
                 <img class="cart-img" src="/static/img/${product.name}.jpg" class="img-fluid img-thumbnail" alt="" />
             </td>
             <td>${product.name}</td>
-            <td data-unitprice>${product.defaultPrice}</td>
+            <td data-unitprice class="enMoney">${unitPrice}</td>
             <td class="qty">
             <button class="btn fas fa-plus qty-up" data-productid="${product.id}"></button>
             <span class="quantity">${product.quantity}</span>
@@ -152,7 +154,7 @@ export let dom = {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
 
         for (let row of shoppingCartTable.rows) {
-            let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML);
+            let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML.replace(/[^0-9.-]+/g,""));
             let quantity = parseInt(row.querySelector('.quantity').innerHTML);
             let subPrice = row.querySelector('[data-subprice]');
 
