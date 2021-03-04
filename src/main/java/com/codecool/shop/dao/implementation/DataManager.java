@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -19,11 +20,15 @@ public class DataManager {
     private ProductDao productDataStore;
     private ProductCategoryDao productCategoryDataStore;
     private SupplierDao supplierDataStore;
+    private OrderDao orderDataStore;
+    private CustomerDaoMem customerDataStore;
 
     public void setup() {
         productDataStore = ProductDaoMem.getInstance();
         productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         supplierDataStore = SupplierDaoMem.getInstance();
+        orderDataStore = OrderDaoMem.getInstance();
+        customerDataStore = CustomerDaoMem.getInstance();
 
         getSuppliers();
         getProductCategories();
