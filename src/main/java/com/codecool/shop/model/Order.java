@@ -47,7 +47,7 @@ public class Order {
     public String toString() {
         StringBuilder orderInformations = new StringBuilder();
         orderInformations.append("Customer Details:\n");
-        orderInformations.append("Mame: " + this.customer.getFirstName() + " " + this.customer.getLastName() + "\n");
+        orderInformations.append("Name: " + this.customer.getFirstName() + " " + this.customer.getLastName() + "\n");
         orderInformations.append("Address: " + this.customer.getAddress() + "\n");
         orderInformations.append("City: " + this.customer.getCity() + "\n");
         orderInformations.append("Post Code: " + this.customer.getPostCode() + "\n");
