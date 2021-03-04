@@ -126,10 +126,23 @@ body{
     color: white;
 }
 
+#confirmation {
+    padding: 20px;
+    color: rgb(14, 136, 113);
+}
+
+#exampleModalLabel {
+    margin-bottom: 15px !important;
+}
+
 .cart-img {
     width: 200px;
     height: 200px;
     object-fit: cover;
+}
+
+.address {
+    padding-left: 50px;
 }
 
 .enMoney::before {
