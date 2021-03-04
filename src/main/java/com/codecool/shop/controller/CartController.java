@@ -22,7 +22,6 @@ public class CartController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductInCart productId = new Gson().fromJson(req.getReader(), ProductInCart.class);
-
         HttpSession session = req.getSession();
         HashMap<Integer, Integer> productsInCart;
         if (session.getAttribute("productsInCart") == null) {
@@ -36,8 +35,17 @@ public class CartController extends HttpServlet {
             if (!productsInCart.containsKey(productId.getId())) {
                 productsInCart.put(productId.getId(), 1);
             } else {
-                int newQuantity = productsInCart.get(productId.getId()) + 1;
-                productsInCart.put(productId.getId(), newQuantity);
+                int newQuantity = 0;
+                if (productId.getAction().equals("up")) {
+                    newQuantity = productsInCart.get(productId.getId()) + 1;
+                } else {
+                    newQuantity = productsInCart.get(productId.getId()) - 1;
+                }
+                if (newQuantity == 0) {
+                    productsInCart.remove(productId.getId());
+                } else {
+                    productsInCart.put(productId.getId(), newQuantity);
+                }
             }
         }
         session.setAttribute("productsInCart", productsInCart);

@@ -19,6 +19,7 @@ export let dom = {
     addToCart: function (e) {
         let data = {};
         data.id = e.target.dataset.productid;
+        data.action = "up";
         dataHandler._api_post("/cart", data, function (response) {
         })
     },
@@ -72,11 +73,60 @@ export let dom = {
             </div>`
     },
     shoppingCartInit: function () {
-        dom.displaySubPrice().then(() => dom.displayTotalPrice());
-        dom.addEventListenerToQuantityField();
         dataHandler._api_get("/cart", function (productsInCart) {
-            console.log(productsInCart);
+            dom.fillCartWithProducts(productsInCart);
+        });
+    },
+    fillCartWithProducts(productsInCart) {
+        let cartTableBody = document.querySelector(".shopping-cart-table");
+        cartTableBody.innerHTML = "";
+        for (let product of productsInCart) {
+            cartTableBody.insertAdjacentHTML("beforeend", dom.makeCartRow(product));
+        }
+        for (let button of document.querySelectorAll(".qty-up")) {
+            button.addEventListener("click", dom.productQuantityUp);
+        }
+        for (let button of document.querySelectorAll(".qty-down")) {
+            button.addEventListener("click", dom.productQuantityDown);
+        }
+        dom.shoppingCartPriceInit();
+    },
+    productQuantityUp(e) {
+        let data = {};
+        data.id = e.target.dataset.productid;
+        data.action = "up";
+        dataHandler._api_post("/cart", data, function (response) {
+            e.target.nextSibling.nextElementSibling.innerHTML = parseInt(e.target.nextSibling.nextElementSibling.innerHTML) + 1;
+            dom.refreshQuantity();
         })
+    },
+    productQuantityDown(e) {
+        let data = {};
+        data.id = e.target.dataset.productid;
+        data.action = "down";
+        dataHandler._api_post("/cart", data, function (response) {
+            e.target.previousSibling.previousElementSibling.innerHTML = parseInt(e.target.previousSibling.previousElementSibling.innerHTML) - 1;
+            dom.refreshQuantity();
+        })
+    },
+    makeCartRow: function (product) {
+        return `<tr>
+            <td class="w-25">
+                <img class="cart-img" src="/static/img/${product.name}.jpg" class="img-fluid img-thumbnail" alt="" />
+            </td>
+            <td>${product.name}</td>
+            <td data-unitprice>${product.defaultPrice}</td>
+            <td class="qty">
+            <button class="btn fas fa-plus qty-up" data-productid="${product.id}"></button>
+            <span class="quantity">${product.quantity}</span>
+            <button class="btn fas fa-minus qty-down" data-productid="${product.id}"></button>
+            </td>
+            <td data-subprice></td>
+        </tr>`
+    },
+    shoppingCartPriceInit: function () {
+        dom.displaySubPrice().then(() => dom.displayTotalPrice());
+        dom.changeQuantityFieldValue();
     },
     displayTotalPrice: function () {
         let totalPrice = 0;
@@ -86,24 +136,24 @@ export let dom = {
             totalPrice += parseInt(subPrice.innerHTML);
         }
 
-        document.querySelector('.price').innerHTML = totalPrice.toString() + '$';
+        document.querySelector('.price').innerHTML = totalPrice.toString();
     },
     displaySubPrice: async function () {
         let shoppingCartTable = document.querySelector('.shopping-cart-table');
 
         for (let row of shoppingCartTable.rows) {
             let unitPrice = parseInt(row.querySelector('[data-unitprice]').innerHTML);
-            let quantity = row.querySelector('.quantity').value;
+            let quantity = parseInt(row.querySelector('.quantity').innerHTML);
             let subPrice = row.querySelector('[data-subprice]');
 
             if (quantity <= 0) {
                 row.remove();
             }
 
-            subPrice.innerHTML = (unitPrice * quantity).toString() + '$';
+            subPrice.innerHTML = (unitPrice * quantity).toString();
         }
     },
-    addEventListenerToQuantityField: function () {
+    changeQuantityFieldValue: function (action) {
         let fields = document.querySelectorAll('.quantity');
 
         for (let field of fields) {
@@ -113,7 +163,7 @@ export let dom = {
         }
     },
     refreshQuantity: function () {
-        dom.shoppingCartInit();
+        dom.shoppingCartPriceInit();
         dom.checkIfCartEmpty()
     },
     checkIfCartEmpty: function () {
