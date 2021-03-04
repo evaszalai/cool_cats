@@ -1,8 +1,15 @@
 package com.codecool.shop.model;
 
 public class Customer {
-    int id;
-
+    private int id;
+    private String country;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String postCode;
+    private String phoneNumber;
+    private String email;
     private static int highest = 0;
 
     public Customer(String country, String firstName, String lastName, String address, String city, String postCode, String phoneNumber, String email){
@@ -29,22 +36,6 @@ public class Customer {
     public static void setHighest(int highest) {
         Customer.highest = highest;
     }
-
-    String country;
-
-    String firstName;
-
-    String lastName;
-
-    String address;
-
-    String city;
-
-    String postCode;
-
-    String phoneNumber;
-
-    String email;
 
     public int getId() {
         return id;

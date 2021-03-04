@@ -5,7 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class createEmail {
+public class CreateEmail {
 
     public static void sendMail(String recepient, String messageBody) throws MessagingException {
         System.out.println("Preparing to send email");
