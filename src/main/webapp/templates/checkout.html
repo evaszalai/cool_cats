@@ -52,7 +52,6 @@
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <strong>Order Total</strong>
-<!--                                <div class="pull-right" th:text="${totalPrice} + ' ' + ${currency}">200 USD</div>-->
                                 <div class="pull-right" th:text="${#numbers.formatCurrency(totalPrice)}">200 USD</div>
                             </div>
                         </div>
