@@ -1,8 +1,12 @@
 import {dataHandler} from "./data_handler.js";
 
+let itemCounter;
+
 export let dom = {
+    const: itemCounter = 0,
     init: function () {
         this.addEventListeners();
+        this.refreshCartCounter();
     },
     addEventListeners: function () {
         for (let category of document.querySelectorAll(".categorySelector")) {
@@ -24,6 +28,8 @@ export let dom = {
         data.id = e.target.dataset.productid;
         data.action = "up";
         dataHandler._api_post("/cart", data, function (response) {
+            itemCounter += 1;
+            dom.refreshCartCounter();
         })
     },
     getProductByCategory: function (e) {
@@ -105,6 +111,8 @@ export let dom = {
         dataHandler._api_post("/cart", data, function (response) {
             e.target.nextSibling.nextElementSibling.innerHTML = parseInt(e.target.nextSibling.nextElementSibling.innerHTML) + 1;
             dom.refreshQuantity();
+            itemCounter += 1;
+            dom.refreshCartCounter();
         })
     },
     productQuantityDown(e) {
@@ -114,6 +122,8 @@ export let dom = {
         dataHandler._api_post("/cart", data, function (response) {
             e.target.previousSibling.previousElementSibling.innerHTML = parseInt(e.target.previousSibling.previousElementSibling.innerHTML) - 1;
             dom.refreshQuantity();
+            itemCounter -= 1;
+            dom.refreshCartCounter();
         })
     },
     makeCartRow: function (product) {
@@ -191,5 +201,11 @@ export let dom = {
         } else {
             checkoutButton.disabled = false;
         }
+    },
+
+    refreshCartCounter: function () {
+        let cart = document.querySelector('#shoppingCart');
+
+        cart.innerHTML = itemCounter > 0 ? `View cart (${itemCounter})` : 'View cart';
     }
 }
