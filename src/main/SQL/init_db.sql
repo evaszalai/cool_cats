@@ -93,3 +93,32 @@ alter table orders
 alter table orders
     add constraint orders_carts__fk
         foreign key (cart_id) references carts;
+
+create table categories
+(
+    id serial not null,
+    name text not null,
+    description text not null
+);
+
+create unique index categories_id_uindex
+    on categories (id);
+
+alter table categories
+    add constraint categories_pk
+        primary key (id);
+
+create table suppliers
+(
+    id serial not null,
+    name text not null
+);
+
+create unique index suppliers_id_uindex
+    on suppliers (id);
+
+alter table suppliers
+    add constraint suppliers_pk
+        primary key (id);
+
+
