@@ -17,3 +17,18 @@ alter table users
     add constraint users_pk
         primary key (id);
 
+create table orders
+(
+    id serial not null,
+    user_id int not null,
+    date date not null,
+    constraint orders_users__fk
+        foreign key (user_id) references users
+);
+
+create unique index orders_id_uindex
+    on orders (id);
+
+alter table orders
+    add constraint orders_pk
+        primary key (id);
