@@ -79,3 +79,10 @@ create unique index carts_id_uindex
 alter table carts
     add constraint carts_pk
         primary key (id);
+
+alter table items
+    add cart_id int;
+
+alter table items
+    add constraint items_carts__fk
+        foreign key (cart_id) references carts;
