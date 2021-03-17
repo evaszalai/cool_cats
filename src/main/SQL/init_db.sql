@@ -121,4 +121,16 @@ alter table suppliers
     add constraint suppliers_pk
         primary key (id);
 
+alter table products
+    add category_id int;
 
+alter table products
+    add supplier_id int;
+
+alter table products
+    add constraint products_categories__fk
+        foreign key (category_id) references categories;
+
+alter table products
+    add constraint products_suppliers__fk
+        foreign key (supplier_id) references suppliers;
