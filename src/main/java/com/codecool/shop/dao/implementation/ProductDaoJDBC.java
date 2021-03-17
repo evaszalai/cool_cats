@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
@@ -41,14 +42,7 @@ public class ProductDaoJDBC implements ProductDao {
             if (!rs.next()){
                 return null;
             }
-            String name = rs.getString(1);
-            String description = rs.getString(2);
-            float price = (float) rs.getInt(3);
-            int categoryId = rs.getInt(4);
-            int supplierId = rs.getInt(5);
-            ProductCategory category = categoryDao.find(categoryId);
-            Supplier supplier = supplierDao.find(supplierId);
-            return new Product(name, price, "USD", description, category, supplier);
+            return createProductFromRS(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading book with id: " + id, e);
         }
@@ -61,7 +55,29 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT name, description, price, category_id, supplier_id FROM products";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<Product> result = new ArrayList<>();
+            while (rs.next()){
+                Product product = createProductFromRS(rs);
+                result.add(product);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading all books", e);
+        }
+    }
+
+    private Product createProductFromRS(ResultSet rs) throws SQLException {
+        String name = rs.getString(1);
+        String description = rs.getString(2);
+        float price = (float) rs.getInt(3);
+        int categoryId = rs.getInt(4);
+        int supplierId = rs.getInt(5);
+        ProductCategory category = categoryDao.find(categoryId);
+        Supplier supplier = supplierDao.find(supplierId);
+        return new Product(name, price, "USD", description, category, supplier);
     }
 
     @Override
