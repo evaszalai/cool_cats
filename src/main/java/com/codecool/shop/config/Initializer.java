@@ -34,11 +34,11 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(southAmerica);
 
         //setting up a new product category
-        ProductCategory small = new ProductCategory("Small", "Kitties", "Up to 8 kg");
+        ProductCategory small = new ProductCategory("Small", "Up to 8 kg");
         productCategoryDataStore.add(small);
-        ProductCategory medium = new ProductCategory("Mid-size", "Cats", "Between 8-25 kg");
+        ProductCategory medium = new ProductCategory("Mid-size", "Between 8-25 kg");
         productCategoryDataStore.add(medium);
-        ProductCategory big = new ProductCategory("Big", "Giants", "Between 25-300 kg");
+        ProductCategory big = new ProductCategory("Big", "Between 25-300 kg");
         productCategoryDataStore.add(big);
 
         //setting up products and printing it

@@ -45,7 +45,7 @@ public class DataManager {
     private void getProductCategories() {
         List<List<String>> records = getRecords(resources[1]);
         for (List<String> record : records) {
-            productCategoryDataStore.add(new ProductCategory(record.get(0), record.get(1), record.get(2)));
+            productCategoryDataStore.add(new ProductCategory(record.get(0), record.get(1)));
         }
     }
 
