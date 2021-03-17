@@ -103,6 +103,21 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        int categoryId = productCategory.getId();
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT name, description, price, category_id, supplier_id FROM products WHERE category_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, categoryId);
+            st.executeQuery();
+            ResultSet rs = st.getGeneratedKeys();
+            List<Product> result = new ArrayList<>();
+            while (rs.next()){
+                Product product = createProductFromRS(rs);
+                result.add(product);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading all books", e);
+        }
     }
 }
