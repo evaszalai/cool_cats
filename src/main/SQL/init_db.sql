@@ -32,3 +32,18 @@ create unique index orders_id_uindex
 alter table orders
     add constraint orders_pk
         primary key (id);
+
+create table products
+(
+    id serial not null,
+    name varchar,
+    description varchar,
+    price int not null
+);
+
+create unique index products_id_uindex
+    on products (id);
+
+alter table products
+    add constraint products_pk
+        primary key (id);
