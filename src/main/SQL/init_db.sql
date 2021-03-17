@@ -86,3 +86,10 @@ alter table items
 alter table items
     add constraint items_carts__fk
         foreign key (cart_id) references carts;
+
+alter table orders
+    add cart_id int;
+
+alter table orders
+    add constraint orders_carts__fk
+        foreign key (cart_id) references carts;
