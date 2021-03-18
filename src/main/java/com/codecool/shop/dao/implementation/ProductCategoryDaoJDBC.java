@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import javax.sql.DataSource;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
@@ -37,7 +39,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             String description = rs.getString(2);
             return new ProductCategory(name, description);
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading book with id: " + id, e);
+            throw new RuntimeException("Error finding product category with id: " + id, e);
         }
     }
 
@@ -48,6 +50,19 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT name, description FROM categories";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<ProductCategory> result = new ArrayList<>();
+            while (rs.next()){
+                String name = rs.getString(1);
+                String description = rs.getString(2);
+                ProductCategory category = new ProductCategory(name, description);
+                result.add(category);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching all product categories", e);
+        }
     }
 }

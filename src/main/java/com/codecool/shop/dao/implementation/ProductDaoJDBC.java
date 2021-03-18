@@ -44,7 +44,7 @@ public class ProductDaoJDBC implements ProductDao {
             }
             return createProductFromRS(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading book with id: " + id, e);
+            throw new RuntimeException("Error fetching product with id: " + id, e);
         }
     }
 
@@ -65,7 +65,7 @@ public class ProductDaoJDBC implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all books", e);
+            throw new RuntimeException("Error fetching all products", e);
         }
     }
 
@@ -96,7 +96,7 @@ public class ProductDaoJDBC implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all books", e);
+            throw new RuntimeException("Error fetching products by supplier " + supplier.getName(), e);
         }
     }
 
@@ -117,7 +117,7 @@ public class ProductDaoJDBC implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all books", e);
+            throw new RuntimeException("Error fetching products by category " + productCategory.getName(), e);
         }
     }
 }
