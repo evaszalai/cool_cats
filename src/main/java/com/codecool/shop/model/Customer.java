@@ -11,6 +11,7 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private static int highest = 0;
+    private String password;
 
     public Customer(String country, String firstName, String lastName, String address, String city, String postCode, String phoneNumber, String email){
         this.country = country;
@@ -22,6 +23,13 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.id = generateId();
+    }
+
+    public Customer(String firstName, String lastName, String email, String password){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
     private static int generateId(){
@@ -107,5 +115,9 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
