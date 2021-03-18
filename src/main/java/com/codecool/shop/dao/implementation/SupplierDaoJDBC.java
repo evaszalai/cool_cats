@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
@@ -48,6 +49,18 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT name FROM suppliers";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<Supplier> result = new ArrayList<>();
+            while (rs.next()){
+                String name = rs.getString(1);
+                Supplier supplier = new Supplier(name);
+                result.add(supplier);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching all suppliers", e);
+        }
     }
 }
