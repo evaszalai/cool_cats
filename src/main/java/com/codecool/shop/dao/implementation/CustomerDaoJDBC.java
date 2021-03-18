@@ -35,6 +35,22 @@ public class CustomerDaoJDBC implements CustomerDao {
         return null;
     }
 
+    public Customer findByEmail(String eMail) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT first_name, last_name, password FROM users WHERE email LIKE ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, eMail);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            return new Customer(rs.getString(1), rs.getString(2), eMail, rs.getString(3));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void remove(int id) {
 
