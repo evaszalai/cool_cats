@@ -1,7 +1,10 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.Initializer;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.DataManager;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
@@ -9,6 +12,8 @@ import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +27,10 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
+        DataManager dataManager = DataManager.getInstance();
+        ProductDao productDataStore = dataManager.getProductDataStore();
+        ProductCategoryDao productCategoryDataStore = dataManager.getProductCategoryDataStore();
+        SupplierDao supplierDataStore = dataManager.getSupplierDataStore();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
