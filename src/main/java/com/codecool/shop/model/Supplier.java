@@ -24,6 +24,11 @@ public class Supplier extends BaseModel {
     }
 
     @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
     public String toString() {
         return String.format("id: %1$s, " +
                         "name: %2$s, " +
