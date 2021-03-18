@@ -140,3 +140,11 @@ VALUES
 ('Big cat', 'Between 40-300 kg'),
 ('Mid-size cat', 'Between 15-40 kg'),
 ('Small cat', 'Up to 15 kg');
+
+INSERT INTO suppliers(name)
+VALUES
+('Africa'),
+('Asia'),
+('Europe'),
+('North-America'),
+('South-America');
