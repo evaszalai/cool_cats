@@ -30,14 +30,15 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             String sql = "SELECT name, description FROM categories WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
-            st.executeQuery();
-            ResultSet rs = st.getGeneratedKeys();
+            ResultSet rs = st.executeQuery();
             if (!rs.next()){
                 return null;
             }
             String name = rs.getString(1);
             String description = rs.getString(2);
-            return new ProductCategory(name, description);
+            ProductCategory category = new ProductCategory(name, description);
+            category.setId(id);
+            return category;
         } catch (SQLException e) {
             throw new RuntimeException("Error finding product category with id: " + id, e);
         }
@@ -51,13 +52,15 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll() {
         try (Connection conn = dataSource.getConnection()){
-            String sql = "SELECT name, description FROM categories";
+            String sql = "SELECT id, name, description FROM categories";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<ProductCategory> result = new ArrayList<>();
             while (rs.next()){
-                String name = rs.getString(1);
-                String description = rs.getString(2);
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String description = rs.getString(3);
                 ProductCategory category = new ProductCategory(name, description);
+                category.setId(id);
                 result.add(category);
             }
             return result;

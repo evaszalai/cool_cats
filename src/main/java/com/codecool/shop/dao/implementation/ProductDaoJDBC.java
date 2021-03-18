@@ -34,11 +34,10 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public Product find(int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT name, description, price, category_id, supplier_id FROM products WHERE id = ?";
+            String sql = "SELECT id, name, description, price, category_id, supplier_id FROM products WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
-            st.executeQuery();
-            ResultSet rs = st.getGeneratedKeys();
+            ResultSet rs = st.executeQuery();
             if (!rs.next()){
                 return null;
             }
@@ -56,7 +55,7 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public List<Product> getAll() {
         try (Connection conn = dataSource.getConnection()){
-            String sql = "SELECT name, description, price, category_id, supplier_id FROM products";
+            String sql = "SELECT id, name, description, price, category_id, supplier_id FROM products";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<Product> result = new ArrayList<>();
             while (rs.next()){
@@ -70,25 +69,27 @@ public class ProductDaoJDBC implements ProductDao {
     }
 
     private Product createProductFromRS(ResultSet rs) throws SQLException {
-        String name = rs.getString(1);
-        String description = rs.getString(2);
-        float price = (float) rs.getInt(3);
-        int categoryId = rs.getInt(4);
-        int supplierId = rs.getInt(5);
+        int id = rs.getInt(1);
+        String name = rs.getString(2);
+        String description = rs.getString(3);
+        float price = (float) rs.getInt(4);
+        int categoryId = rs.getInt(5);
+        int supplierId = rs.getInt(6);
         ProductCategory category = categoryDao.find(categoryId);
         Supplier supplier = supplierDao.find(supplierId);
-        return new Product(name, price, "USD", description, category, supplier);
+        Product product =  new Product(name, price, "USD", description, category, supplier);
+        product.setId(id);
+        return product;
     }
 
     @Override
     public List<Product> getBy(Supplier supplier) {
         int supplierId = supplier.getId();
         try (Connection conn = dataSource.getConnection()){
-            String sql = "SELECT name, description, price, category_id, supplier_id FROM products WHERE supplier_id = ?";
+            String sql = "SELECT id, name, description, price, category_id, supplier_id FROM products WHERE supplier_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, supplierId);
-            st.executeQuery();
-            ResultSet rs = st.getGeneratedKeys();
+            ResultSet rs = st.executeQuery();
             List<Product> result = new ArrayList<>();
             while (rs.next()){
                 Product product = createProductFromRS(rs);
@@ -105,7 +106,7 @@ public class ProductDaoJDBC implements ProductDao {
     public List<Product> getBy(ProductCategory productCategory) {
         int categoryId = productCategory.getId();
         try (Connection conn = dataSource.getConnection()){
-            String sql = "SELECT name, description, price, category_id, supplier_id FROM products WHERE category_id = ?";
+            String sql = "SELECT id, name, description, price, category_id, supplier_id FROM products WHERE category_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, categoryId);
             st.executeQuery();
