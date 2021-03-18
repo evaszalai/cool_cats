@@ -45,9 +45,9 @@
                         data-target="#cartModal">
                     View Cart
                 </button>
-                <div class="dropdown">
+                <div th:replace="${user} ? ~{logout.html :: logout} : ~{login.html :: login}">>
                     <button class="btn btn-success m-1 dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Login
+                        <span>Login</span>
                     </button>
                     <form class="dropdown-menu dropdown-menu-right w-50 p-2" method="post" action="login">
                       <div class="form-group">

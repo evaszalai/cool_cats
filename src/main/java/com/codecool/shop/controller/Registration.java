@@ -27,7 +27,6 @@ public class Registration extends HttpServlet {
         DataManager dataManager = DataManager.getInstance();
         ProductDao productDataStore = dataManager.getProductDataStore();
         context.setVariable("products", productDataStore.getAll());
-        context.setVariable("render", "ok");
         engine.process("registration.html", context, resp.getWriter());
     }
 
@@ -45,16 +44,9 @@ public class Registration extends HttpServlet {
             e.printStackTrace();
         }
 
-//        boolean matched = false;
-//        try {
-//            matched = Util.validatePassword(password, generatedSecuredPasswordHash);
-//        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(matched);
-
         DataManager dataManager = DataManager.getInstance();
         dataManager.getCustomerDataStore().add(new Customer(firstName, lastName, eMail, generatedSecuredPasswordHash));
+
         resp.sendRedirect("/");
     }
 }

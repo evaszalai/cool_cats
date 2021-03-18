@@ -39,6 +39,9 @@ public class ProductController extends HttpServlet {
         Customer customer = (Customer) session.getAttribute("user");
         if (customer != null) {
             context.setVariable("user", customer);
+            System.out.println("1");
+        } else {
+            System.out.println("none");
         }
 
         engine.process("product/index.html", context, resp.getWriter());
