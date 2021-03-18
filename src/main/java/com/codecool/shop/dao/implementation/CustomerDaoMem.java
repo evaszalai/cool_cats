@@ -33,6 +33,11 @@ public class CustomerDaoMem implements CustomerDao {
     }
 
     @Override
+    public Customer findByEmail(String eMail) {
+        return null;
+    }
+
+    @Override
     public void remove(int id) {
         data.remove(find(id));
     }
