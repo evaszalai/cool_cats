@@ -15,6 +15,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/registration"})
 public class Registration extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -25,4 +26,14 @@ public class Registration extends HttpServlet {
         engine.process("registration.html", context, resp.getWriter());
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String firstName = req.getParameter("first-name");
+        String lastName = req.getParameter("last-name");
+        String eMail = req.getParameter("email");
+        String password = req.getParameter("password");
+        String passwordAgain = req.getParameter("password-again");
+        System.out.println(firstName + "-" + lastName + "-" + eMail + "-" + password + "-" + passwordAgain);
+        resp.sendRedirect("/");
+    }
 }
