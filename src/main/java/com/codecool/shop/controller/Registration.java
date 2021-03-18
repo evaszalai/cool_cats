@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @WebServlet(urlPatterns = {"/registration"})
 public class Registration extends HttpServlet {
@@ -34,10 +36,24 @@ public class Registration extends HttpServlet {
         String lastName = req.getParameter("last-name");
         String eMail = req.getParameter("email");
         String password = req.getParameter("password");
-//        String passwordAgain = req.getParameter("password-again");
-        System.out.println(firstName + "-" + lastName + "-" + eMail + "-" + password);
+
+        String generatedSecuredPasswordHash = null;
+        try {
+            generatedSecuredPasswordHash = Util.generateStorngPasswordHash(password);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+
+//        boolean matched = false;
+//        try {
+//            matched = Util.validatePassword(password, generatedSecuredPasswordHash);
+//        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(matched);
+
         DataManager dataManager = DataManager.getInstance();
-        dataManager.getCustomerDataStore().add(new Customer(firstName, lastName, eMail, password));
+        dataManager.getCustomerDataStore().add(new Customer(firstName, lastName, eMail, generatedSecuredPasswordHash));
         resp.sendRedirect("/");
     }
 }

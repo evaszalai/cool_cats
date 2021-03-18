@@ -26,7 +26,7 @@ public class CustomerDaoJDBC implements CustomerDao {
             st.setString(5, "");
             st.executeUpdate();
         } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding new Author.", throwables);
+            throw new RuntimeException("Error while adding new User.", throwables);
         }
     }
 
