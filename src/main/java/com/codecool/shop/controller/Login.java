@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -28,6 +29,10 @@ public class Login extends HttpServlet {
             matched = Util.validatePassword(password, customer.getPassword());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
+        }
+        if (matched) {
+            HttpSession session = req.getSession();
+            session.setAttribute("user", customer);
         }
 
         resp.sendRedirect("/");
