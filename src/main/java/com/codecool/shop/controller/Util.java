@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.DataManager;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 
@@ -17,7 +18,8 @@ import java.util.Map;
 
 public class Util {
     public static List<Product> collectProductWithQuantity(HashMap<Integer, Integer> productsIdAndQuantity) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        DataManager dataManager = DataManager.getInstance();
+        ProductDao productDataStore = dataManager.getProductDataStore();
         List<Product> productsInCart = new ArrayList<Product>();
         for (Map.Entry<Integer, Integer> entry : productsIdAndQuantity.entrySet()) {
             Integer key = entry.getKey();
@@ -37,7 +39,7 @@ public class Util {
         return totalPrice;
     }
 
-    public static String generateStorngPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static String generateStrongPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 1000;
         char[] chars = password.toCharArray();
         byte[] salt = getSalt();

@@ -39,7 +39,7 @@ public class Registration extends HttpServlet {
 
         String generatedSecuredPasswordHash = null;
         try {
-            generatedSecuredPasswordHash = Util.generateStorngPasswordHash(password);
+            generatedSecuredPasswordHash = Util.generateStrongPasswordHash(password);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
