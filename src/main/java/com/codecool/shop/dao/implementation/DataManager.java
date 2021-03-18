@@ -68,6 +68,7 @@ public class DataManager {
             this.productCategoryDataStore = new ProductCategoryDaoJDBC(dataSource);
             this.supplierDataStore = new SupplierDaoJDBC(dataSource);
             this.productDataStore = new ProductDaoJDBC(dataSource, supplierDataStore, productCategoryDataStore);
+            this.customerDataStore = new CustomerDaoJDBC(dataSource);
         }
     }
 
