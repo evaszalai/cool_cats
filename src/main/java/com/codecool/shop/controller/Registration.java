@@ -24,7 +24,8 @@ public class Registration extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        DataManager dataManager = DataManager.getInstance();
+        ProductDao productDataStore = dataManager.getProductDataStore();
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("render", "ok");
         engine.process("registration.html", context, resp.getWriter());
