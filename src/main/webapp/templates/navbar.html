@@ -46,20 +46,6 @@
                     View Cart
                 </button>
                 <div th:replace="${user} ? ~{logout.html :: logout} : ~{login.html :: login}">>
-                    <button class="btn btn-success m-1 dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>Login</span>
-                    </button>
-                    <form class="dropdown-menu dropdown-menu-right w-50 p-2" method="post" action="login">
-                      <div class="form-group">
-                        <label for="email" class="white">E-mail address</label>
-                        <input type="email" name="email" class="form-control" id="email" >
-                      </div>
-                      <div class="form-group">
-                        <label for="password" class="white">Password</label>
-                        <input type="password" name="password" class="form-control" id="password">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Login</button>
-                    </form>
                 </div>
                 <button type="button" class="btn btn-success m-1">
                     <a class="white" href="/registration">Registration</a>
