@@ -8,6 +8,7 @@ import com.codecool.shop.model.Customer;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,11 @@ public class Registration extends HttpServlet {
 
         DataManager dataManager = DataManager.getInstance();
         dataManager.getCustomerDataStore().add(new Customer(firstName, lastName, eMail, generatedSecuredPasswordHash));
-
+        try {
+            CreateEmail.sendMail(eMail, "Welcome, " + firstName + "! Successful registration on CoolCats website. Enjoy your stay!");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         resp.sendRedirect("/");
     }
 }
