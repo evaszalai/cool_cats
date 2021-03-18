@@ -2,11 +2,9 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Order;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CustomerDaoMem implements CustomerDao {
 
