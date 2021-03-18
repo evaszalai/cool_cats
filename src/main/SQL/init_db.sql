@@ -134,3 +134,9 @@ alter table products
 alter table products
     add constraint products_suppliers__fk
         foreign key (supplier_id) references suppliers;
+
+INSERT INTO categories(name, description)
+VALUES
+('Big cat', 'Between 40-300 kg'),
+('Mid-size cat', 'Between 15-40 kg'),
+('Small cat', 'Up to 15 kg');
