@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.DataManager;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.google.gson.Gson;
@@ -24,8 +25,9 @@ public class ProductByCategory extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         Gson gson = new Gson();
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        DataManager datamanager = DataManager.getInstance();
+        ProductDao productDataStore = datamanager.getProductDataStore();
+        ProductCategoryDao productCategoryDataStore = datamanager.getProductCategoryDataStore();
         out.println(gson.toJson(productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.getParameter("id"))))));
     }
 }

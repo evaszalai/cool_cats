@@ -109,8 +109,7 @@ public class ProductDaoJDBC implements ProductDao {
             String sql = "SELECT id, name, description, price, category_id, supplier_id FROM products WHERE category_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, categoryId);
-            st.executeQuery();
-            ResultSet rs = st.getGeneratedKeys();
+            ResultSet rs = st.executeQuery();
             List<Product> result = new ArrayList<>();
             while (rs.next()){
                 Product product = createProductFromRS(rs);

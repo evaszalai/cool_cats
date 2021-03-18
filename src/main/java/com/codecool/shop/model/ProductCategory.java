@@ -7,7 +7,7 @@ public class ProductCategory extends BaseModel {
     private transient List<Product> products;
 
     public ProductCategory(String name, String description) {
-        super(name);
+        super(name, description);
         this.products = new ArrayList<>();
     }
 
@@ -25,6 +25,16 @@ public class ProductCategory extends BaseModel {
 
     @Override
     public String toString() {
+        return "ProductCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    /*
+    @Override
+    public String toString() {
         return String.format(
                 "id: %1$d," +
                         "name: %2$s, " +
@@ -33,4 +43,7 @@ public class ProductCategory extends BaseModel {
                 this.name,
                 this.description);
     }
+
+     */
+
 }
