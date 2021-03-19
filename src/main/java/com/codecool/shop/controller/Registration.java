@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.DataManager;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Customer;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;

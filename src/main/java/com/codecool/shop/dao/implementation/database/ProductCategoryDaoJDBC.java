@@ -1,10 +1,9 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.dao.implementation.DBConnection;
 import com.codecool.shop.model.ProductCategory;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
-    DataSource dataSource;
 
-    public ProductCategoryDaoJDBC(DataSource dataSource){
-        this.dataSource = dataSource;
+    public ProductCategoryDaoJDBC(){
     }
 
     @Override
@@ -26,7 +23,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
-        try (Connection conn = dataSource.getConnection()) {
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
             String sql = "SELECT name, description FROM categories WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
@@ -51,7 +49,8 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
-        try (Connection conn = dataSource.getConnection()){
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
             String sql = "SELECT id, name, description FROM categories";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<ProductCategory> result = new ArrayList<>();

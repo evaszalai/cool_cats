@@ -1,17 +1,19 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.database.CustomerDaoJDBC;
+import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.implementation.database.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.database.SupplierDaoJDBC;
+import com.codecool.shop.dao.implementation.memory.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import org.postgresql.ds.PGSimpleDataSource;
 
-import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +26,6 @@ public class DataManager {
     private SupplierDao supplierDataStore;
     private OrderDao orderDataStore;
     private CustomerDao customerDataStore;
-    private DataSource dataSource;
     private static DataManager instance;
 
     private DataManager(){
@@ -60,15 +61,14 @@ public class DataManager {
             String userName = dataProps.getProperty("user");
             String dbName = dataProps.getProperty("database");
             String password = dataProps.getProperty("password");
-            try {
-                this.dataSource = connect(dbName, userName, password);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            this.productCategoryDataStore = new ProductCategoryDaoJDBC(dataSource);
-            this.supplierDataStore = new SupplierDaoJDBC(dataSource);
-            this.productDataStore = new ProductDaoJDBC(dataSource, supplierDataStore, productCategoryDataStore);
-            this.customerDataStore = new CustomerDaoJDBC(dataSource);
+            DBConnection dbConnection = DBConnection.getInstance();
+            dbConnection.setDatabase(dbName);
+            dbConnection.setUser(userName);
+            dbConnection.setPassword(password);
+            this.productCategoryDataStore = new ProductCategoryDaoJDBC();
+            this.supplierDataStore = new SupplierDaoJDBC();
+            this.productDataStore = new ProductDaoJDBC(supplierDataStore, productCategoryDataStore);
+            this.customerDataStore = new CustomerDaoJDBC();
         }
     }
 
@@ -132,14 +132,4 @@ public class DataManager {
         return records;
     }
 
-    private DataSource connect(String dbName, String userName, String password) throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setDatabaseName(dbName);
-        dataSource.setUser(userName);
-        dataSource.setPassword(password);
-        System.out.println("Trying to connect...");
-        dataSource.getConnection().close();
-        System.out.println("Connection OK");
-        return dataSource;
-    }
 }
