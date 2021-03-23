@@ -1,10 +1,9 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.dao.implementation.DBConnection;
 import com.codecool.shop.model.Supplier;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
-    private DataSource dataSource;
 
-    public SupplierDaoJDBC(DataSource dataSource){
-        this.dataSource = dataSource;
-    }
+    public SupplierDaoJDBC(){
+        }
 
     @Override
     public void add(Supplier supplier) {
@@ -26,7 +23,8 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
-        try (Connection conn = dataSource.getConnection()) {
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
             String sql = "SELECT name FROM suppliers WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
@@ -50,7 +48,8 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        try (Connection conn = dataSource.getConnection()){
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
             String sql = "SELECT id, name FROM suppliers";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<Supplier> result = new ArrayList<>();
