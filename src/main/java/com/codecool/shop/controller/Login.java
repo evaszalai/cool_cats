@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
@@ -27,7 +28,7 @@ public class Login extends HttpServlet {
         boolean matched = false;
         try {
             matched = Util.validatePassword(password, customer.getPassword());
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+        } catch (NoSuchAlgorithmException | NullPointerException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
         if (matched) {
