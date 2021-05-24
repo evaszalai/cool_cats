@@ -31,14 +31,16 @@ checkout items and make payments. But also can log in and see the abandoned shop
 
 1. Create a new Postgresql database and run the ```/src/main/SQL/init_db.sql``` file on it
 
-2. Open a new terminal in project folder and run the following command: ```mvn jetty:run```
 
-3. Open a web browser and visit ```localhost:8080```
+2. In case you would like to use the app with database instead of in-memory:
+      - In the ```/src/main/resources/connection.properties``` file complete the ```user``` and ```password``` fields with your database credentials
+      - Replace ```dao``` field from ```memory``` to ```jdbc```
 
-4. Buy some cat
+3. Open a new terminal in project folder and run the following command: ```mvn jetty:run```
 
-- You can change the type of storage between in-memory use and database
-- To change from database to in-memory use open the ```/src/main/resources/connection.properties``` file and replace ```dao = jdbc``` to ```dao = memory```
+4. Open a web browser and visit ```localhost:8080```
+
+5. Buy some cat
 
 ---
 
