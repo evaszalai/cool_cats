@@ -1,15 +1,17 @@
 package com.codecool.shop.model;
 
 import java.util.Currency;
+import java.util.Locale;
 
 public class Product extends BaseModel {
 
     private float defaultPrice;
     private float totalPrice;
-    private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
     private int quantity;
+    private Locale locale = Locale.US;
+    private Currency defaultCurrency = Currency.getInstance(locale);
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
