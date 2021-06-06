@@ -10,6 +10,7 @@ checkout items and make payments. But also can log in and see the abandoned shop
 > Did you know that the very first product on eBay was a broken laser pointer?
 > If you don't believe, check their history: [eBay history](https://www.ebayinc.com/company/our-history/)
 
+![Alt text](src/main/webapp/static/img/Screenshot.png?raw=true)
 ---
 ## What we have learned during the project
 
