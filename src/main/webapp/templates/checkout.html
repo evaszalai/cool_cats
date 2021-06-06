@@ -42,7 +42,7 @@
                                 <div class="col-xs-12" th:text="${'Quantity: ' + prod.quantity}"><small>Quantity: 1</small></div>
                             </div>
                             <div class="col-sm-3 col-xs-3 text-right">
-                                <h6 th:text="${#numbers.formatCurrency(prod.getDefaultPrice())}">100 USD</h6>
+                                <h6 th:text="${prod.getPrice()}">100 USD</h6>
                                 <h5 th:text="${#numbers.formatCurrency(prod.getTotalPrice())}">100 USD</h5>
                             </div>
                         </div>

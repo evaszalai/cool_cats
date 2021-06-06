@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="card-text">
-                                <p class="lead" th:text="${#numbers.formatCurrency(prod.getDefaultPrice())}">100 USD</p>
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="card-text">
                                 <a class="btn btn-success shoppingCart" href="#" th:attr="data-productid=${prod.id}">Add to cart</a>
